@@ -1,10 +1,13 @@
 {
-  "name": "estimuloaversivov2",
+  "name": "estimuloAversivoV2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "tsc && copyfiles *.html dist/",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
