@@ -12,6 +12,11 @@ module.exports = function(app){
 		app.app.controllers.index.index(app,req,res);
 	});
 
+	app.get('/exp',function(req,res){
+		app.app.controllers.index.exp(app,req,res);
+	});
+
+
 
 
 }

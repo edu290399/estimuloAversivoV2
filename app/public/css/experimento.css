@@ -1,0 +1,30 @@
+#opA{
+    background-color: red;
+    margin-left: -5%;
+
+}
+
+#opB{
+    background-color: mediumblue;
+    margin-left: 5%;
+}
+
+.botao{
+    padding: 3%;
+    font-size: 28;
+    font-weight: bold;
+    border-radius: 100%;
+    border-width: 3px;
+    border-color: black;
+}
+
+.container {
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-100px;
+    margin-left:-100px;
+
+    }
