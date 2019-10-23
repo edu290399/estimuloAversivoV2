@@ -1,0 +1,39 @@
+<html>
+        <body>
+	<head>
+		<title>Cadastro do Sujeito</title>
+		<link rel="stylesheet" type="text/css" href="css/cadastro.css">
+
+	</head>
+        <div class="container">		
+
+        <head>
+                        <form autocomplete="off" action='/busca1' method='POST'>	
+                                <h2><input type="submit" id="resultados" value="Resultados" name="HOME"></input></h2>
+                        </form>
+                        <!-- <form autocomplete="off" action='/busca2' method='POST'>	
+                                <h2><input type="submit" class="HOME" value="Tempos(Condição 2)" name="HOME"></input></h2>
+                        </form>                     -->
+                <h1>Cadastro do Sujeito</h1>
+
+                
+        </head>
+       
+                
+                            
+                        <form action = '/cadastrar' method= 'post'>
+                        <input  name="nome" placeholder="Nome do Sujeito"  class="cadastro" required></input>
+                        <input type="number" name="idade" placeholder="Idade do Sujeito"  class="cadastro" required></input>
+                        <input  name="sexo" placeholder="Sexo do Sujeito" class="cadastro" required></input>
+                        
+                        <input type="submit" class="condicao" value="Iniciar" name="iniciar" id="iniciar"> </input>
+                                <!-- <input type="submit" class="condicao" value="Condição 1.2" name="condicao12"> </input> -->
+                                <!-- <input type="submit" class="condicao" value = "Condição 2.1" name="condicao21"></input>  -->
+                                <!-- <input type="submit" class="condicao" value="Condição 2.2" name="condicao22"> </input>             -->
+                        </form>
+                        
+                </div>
+                    
+        </body>
+</html>
+				

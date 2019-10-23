@@ -9,12 +9,17 @@ module.exports = function(app){
 	});
 
 	app.get('/',function(req,res){
-		app.app.controllers.index.index(app,req,res);
+		app.app.controllers.cadastro.cadastro(app,req,res);
 	});
 
 	app.get('/exp',function(req,res){
 		app.app.controllers.index.exp(app,req,res);
 	});
+
+	app.post('/cadastrar',function(req,res){
+		app.app.controllers.cadastro.cadastrar(app,req,res);
+	});
+
 
 
 

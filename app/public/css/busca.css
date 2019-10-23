@@ -1,0 +1,78 @@
+h2{
+    text-align: center;
+    color: white;
+    background-image: linear-gradient(to bottom right, rgba(20, 18, 18, 0.726), rgb(80, 71, 71));
+    width: 104%;
+   
+}
+
+body{
+    background-color: black;
+    overflow-x: hidden;
+}
+
+table{
+    
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+    text-align: left;
+    border: 1px solid rgb(119, 23, 163);
+    border-collapse: collapse;
+    margin-right:auto; 
+    margin-left:auto; 
+    width: 90%;
+}
+
+
+td{
+    border-top: 2px solid rgb(119, 23, 163);
+    border-bottom: 2px solid rgb(119, 23, 163);
+    padding-left: 8px;      
+    white-space: nowrap;
+    width: 3cm;
+    padding: 3px;
+    text-align: center;
+    
+}
+#descProduto{
+    white-space: pre-wrap;
+}
+
+th{
+    padding-left: 5px;
+    white-space: nowrap;
+    text-align: center;
+    padding-bottom: 0.3cm;
+    
+    
+}
+
+
+h1{
+    margin-left: 5%;
+    margin-top: -0.8%;
+    
+}
+
+
+.HOME{
+    font-size: 20px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-image: linear-gradient(to bottom right,rgb(231, 219, 219), rgb(80, 72, 72));
+    border-radius: 5px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.HOME:hover{
+    background-image: linear-gradient(to bottom right,rgb(102, 86, 86), rgb(48, 40, 40));
+    color: antiquewhite;
+}
+
+.id
+{
+    width: fit-content;
+    border-radius: 3px;
+}

@@ -1,17 +1,18 @@
 #opA{
-    background-color: red;
-    margin-left: -5%;
+    background-color: black;
+    color: white;
+    margin-right: 17.5%;
 
 }
 
 #opB{
-    background-color: mediumblue;
-    margin-left: 5%;
+    background-color: black;
+    color: white;
 }
 
 .botao{
-    padding: 3%;
-    font-size: 28;
+    padding: 5%;
+    font-size: 30;
     font-weight: bold;
     border-radius: 100%;
     border-width: 3px;
@@ -23,7 +24,7 @@
     height:100vh;
     position:absolute;
     top:50%;
-    left:50%;
+    left:35%;
     margin-top:-100px;
     margin-left:-100px;
 
