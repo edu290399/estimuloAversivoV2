@@ -3,7 +3,6 @@ var app = express();
 var consign = require('consign');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
 app.set('view engine', 'ejs');
 app.set('views', './app/views');
 
@@ -19,7 +18,7 @@ app.use(session({
 consign().include('app/routes').
 then('app/model').
 then('app/controllers').
-//then('config/connection.js').
+then('config/connection.js').
 into(app);
 
 module.exports = app;
