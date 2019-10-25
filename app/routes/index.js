@@ -20,4 +20,8 @@ module.exports = function(app){
 		app.app.model.sujeitoModel.cadastrar(app,req,res);
 	});
 
+	app.post('/envExp',function(req,res){
+		app.app.controllers.exp.envExp(app,req,res);
+	});
+
 }
