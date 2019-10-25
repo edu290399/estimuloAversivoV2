@@ -18,7 +18,6 @@ app.use(session({
 consign().include('app/routes').
 then('app/model').
 then('app/controllers').
-then('config/connection.js').
 into(app);
 
 module.exports = app;
