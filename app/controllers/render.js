@@ -10,3 +10,7 @@ module.exports.exp = function(app, req, res){
 	res.render('exp');
 }
 
+module.exports.expForc = function(app, req, res){
+	res.render('expForc');
+}
+

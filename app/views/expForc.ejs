@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <title>expForc</title>
+    <link rel="stylesheet" type="text/css" href="css/experimento.css">
+
+</head>
+
+<body style="overflow: hidden;" onload="random()">
+
+    <div class="container">
+        <form id="formA" action='/envExpA' method='POST'>
+            <button type="submit" class="botao" id="opA" d>A</button>
+        </form>
+    </div>
+
+    <div class="container2">
+        <form id="formB" action='/envExpB' method='POST'>
+            <button type="submit" class="botao" id="opB">B</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+		function random(){
+			min = Math.ceil(3);
+			max = Math.floor(1);
+			var preRand = Math.floor(Math.random() * (max - min)) + min;
+			var rand = preRand%2;
+			console.log(rand);
+			if(rand == 0){
+				document.getElementById("formA").style.display  = "none";
+            }
+            if(rand == 1){
+                document.getElementById("formB").style.display  = "none";
+            }
+		}
+</script>

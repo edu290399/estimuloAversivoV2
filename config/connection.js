@@ -4,9 +4,8 @@ module.exports.conectar = new sqlite3.Database('./dataBase/estimuloAversivoV2.db
 console.log('Connected to the estimuloAversivoV2 database.'),
  (err) => {
     if (err) {
-      console.error(err.message); 
+        console.error(err.message); 
     }
-    
   });
 
 
