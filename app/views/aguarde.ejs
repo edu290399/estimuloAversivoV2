@@ -4,18 +4,25 @@
 		<link rel="stylesheet" type="text/css" href="css/aguarde.css">
 
 	</head>
+
 	<body>
 		<div>
 			
-			<form action = '/continua' method='GET'>
+			<form action = '/continuar' name="continuar" method='GET'>
 
-					
-						<output> aguarde </output>
-					
-					
-					
+				<output> aguarde </output>
+						
 			</form>
-	</div>
-	</sript>
-    </body>
-    </html>
+		
+		</div>
+	</body>
+	
+</html>
+
+<script>
+	setTimeout(function(){  
+		document.continuar.submit();
+	}, 3000);
+
+
+</script>

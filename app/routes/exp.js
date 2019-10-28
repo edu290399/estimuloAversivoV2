@@ -8,4 +8,8 @@ app.post('/envExpB',function(req,res){
     app.app.controllers.exp.envExpB(app,req,res);
 });
 
+app.get('/continuar',function(req,res){
+    app.app.controllers.exp.continuar(app,req,res);
+});
+
 }
