@@ -25,17 +25,48 @@
 </html>
 
 <script>
-		function random(){
-			min = Math.ceil(3);
-			max = Math.floor(1);
-			var preRand = Math.floor(Math.random() * (max - min)) + min;
-			var rand = preRand%2;
-			console.log(rand);
-			if(rand == 0){
-				document.getElementById("formA").style.display  = "none";
-            }
-            if(rand == 1){
-                document.getElementById("formB").style.display  = "none";
-            }
-		}
+	function random(){
+		min = Math.ceil(3);
+		max = Math.floor(1);
+		var preRand = Math.floor(Math.random() * (max - min)) + min;
+		var rand = preRand%2;
+		console.log(rand);
+		if(rand == 0){
+			document.getElementById("formA").style.display  = "none";
+        }
+        if(rand == 1){
+            document.getElementById("formB").style.display  = "none";
+        }
+    }
+    
+    
+    var tempo = 0;
+
+    function clickA() {
+        console.log("opA");
+        console.log(tempo);
+        document.getElementById("opA").style.display  = "none";
+        document.getElementById("opB").style.display  = "none";
+        return apareceA();
+    }
+    function clickB(){
+        console.log("opB");
+        console.log(tempo);
+        document.getElementById("opA").style.display  = "none";
+        document.getElementById("opB").style.display  = "none";
+        return apareceB();
+    }
+    function apareceA(){
+        setTimeout(function(){  
+            document.getElementById("opA").style.display  = "block";
+            tempo = 5.00;
+        }, 5000)
+    }
+    function apareceB(){
+        setTimeout(function(){  
+            document.getElementById("opB").style.display  = "block";
+            tempo = 5.00;
+        }, 5000)
+    }
+
 </script>

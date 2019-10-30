@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Inicio</title>
+    <title>EXP</title>
     <link rel="stylesheet" type="text/css" href="css/experimento.css">
 
 </head>
@@ -10,13 +10,13 @@
 
     <div class="container">
         <form action='/envExpA' method='POST'>
-            <button type="submit" class="botao" id="opA">A</button>
+            <button type="submit" onclick='clickA();' class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
         <form action='/envExpB' method='POST'>
-            <button type="submit" class="botao" id="opB">B</button>
+            <button type="submit" onclick='clickB();' class="botao" id="opB">B</button>
         </form>
     </div>
 
@@ -24,3 +24,33 @@
 
 </html>
 
+<script type="text/javascript">
+    var tempo = 0;
+    function clickA() {
+        console.log("opA");
+        console.log(tempo);
+        document.getElementById("opA").style.display  = "none";
+        document.getElementById("opB").style.display  = "none";
+        return apareceA();
+    }
+    function clickB(){
+        console.log("opB");
+        console.log(tempo);
+        document.getElementById("opA").style.display  = "none";
+        document.getElementById("opB").style.display  = "none";
+        return apareceB();
+    }
+    function apareceA(){
+        setTimeout(function(){  
+            document.getElementById("opA").style.display  = "block";
+            tempo = 5.00;
+        }, 5000)
+    }
+    function apareceB(){
+        setTimeout(function(){  
+            document.getElementById("opB").style.display  = "block";
+            tempo = 5.00;
+        }, 5000)
+    }
+
+</script>

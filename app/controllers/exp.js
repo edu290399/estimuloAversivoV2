@@ -6,6 +6,7 @@ module.exports.envExpA = function(app, req, res){
 	//Verifica qual o atual passo do teste
 	console.log("Passo: "+contPasso);
 	contPasso++;
+
 	if (contPasso==3){
 		res.render('aguarde');
 		contPasso = 1;
@@ -30,6 +31,7 @@ module.exports.envExpB = function(app, req, res){
 	//Verifica qual o atual passo do teste
 	console.log("Passo: "+contPasso);
 	contPasso++;
+
 	if (contPasso==3){
 		res.render('aguarde');
 		contPasso = 1;
