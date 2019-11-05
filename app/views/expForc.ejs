@@ -10,15 +10,17 @@
 
     <div class="container">
         <form id="formA" action='/envExpA' method='POST'>
-            <button type="submit" class="botao" id="opA" d>A</button>
+            <button type="submit" onclick="clickA()" class="botao" id="opA" d>A</button>
         </form>
     </div>
 
     <div class="container2">
         <form id="formB" action='/envExpB' method='POST'>
-            <button type="submit" class="botao" id="opB">B</button>
+            <button type="submit" onclick="clickB()" class="botao" id="opB">B</button>
         </form>
     </div>
+
+    <form action='/envExpBComp' name="envExpBComp" method='POST'/>
 
 </body>
 
@@ -66,7 +68,14 @@
         setTimeout(function(){  
             document.getElementById("opB").style.display  = "block";
             tempo = 5.00;
+            envFormB();
         }, 5000)
+    }
+
+    function envFormB(){
+        setTimeout(function(){
+            document.envExpBComp.submit();
+        },5000)
     }
 
 </script>

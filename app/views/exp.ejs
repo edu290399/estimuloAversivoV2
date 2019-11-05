@@ -20,6 +20,8 @@
         </form>
     </div>
 
+    <!-- <form action='/envExpBComp' name="envExpBComp" method='POST'/> -->
+
 </body>
 
 </html>
@@ -43,14 +45,19 @@
     function apareceA(){
         setTimeout(function(){  
             document.getElementById("opA").style.display  = "block";
-            tempo = 5.00;
         }, 5000)
     }
     function apareceB(){
-        setTimeout(function(){  
+        setTimeout(function(){
             document.getElementById("opB").style.display  = "block";
-            tempo = 5.00;
+            // envFormB();
         }, 5000)
     }
+    function envFormB(){
+        setTimeout(function(){
+            document.envExpBComp.submit();
+        },5000)
+    }
+
 
 </script>
