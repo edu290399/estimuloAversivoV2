@@ -1,5 +1,6 @@
 var contPasso = 1;
-var contRepet = 0;
+var contRepet = 5;
+var contBloco = 1;
 var tempoFuga = 10000;
 var flag = 0;
 var contA = 0;
@@ -68,27 +69,21 @@ module.exports.envExpA = function(app, req, res){
 		contRepet++;
 		console.log("RENDENRIZANDO: 25 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
-		console.log("Contador A: "+contA);
-		console.log("Contador B: "+contB);
+
 
 		if(contRepet>2){
 			contA += 1;
+			console.log("Contador A: "+contA);
+			console.log("Contador B: "+contB);
+		}else{
+			console.log("Contador A: "+contA);
+			console.log("Contador B: "+contB);
 		}
 	}
-
-	//Verifica qual a atual repeticao do teste
-	if(contRepet==6){
-		console.log("fim do experimento");
-		contRepet=0;
-		contA = 0;
-		contB = 0;
-	}
-
 
 }
 
 module.exports.envExpB = function(app, req, res){
-	contB += 1; 
 	//Verifica qual o atual passo do teste
 	console.log("Passo Antes: "+contPasso);
 	contPasso++;
@@ -128,57 +123,42 @@ module.exports.envExpB = function(app, req, res){
 		
 		console.log("RENDENRIZANDO: 15 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
-		console.log("Contador A: "+contA);
-		console.log("Contador B: "+contB);
+
 
 		if(contRepet>2){
-			contB += 1;
+			contB += 1;		
+			console.log("Contador A: "+contA);
+			console.log("Contador B: "+contB);
+		}else{
+			console.log("Contador A: "+contA);
+			console.log("Contador B: "+contB);
 		}
-	}
-
-
-
-	//Verifica se o teste acabou
-	if(contRepet==6){
-		console.log("fim do experimento");
-		contRepet=0;
-		contA = 0;
-		contB = 0;
 	}
 
 }
 
-
-
-// module.exports.envExpBComp = function(app, req, res){
-
-// 	//Verifica qual o atual passo do teste
-// 	console.log("ENTROU");
-// 	contPasso++;
-
-// 	if (contPasso==3){
-// 		res.render('aguarde',{ITI:(40 * 1000)});
-// 		contPasso = 1;
-// 		contRepet++;
-// 		console.log("Repet: "+contRepet);
-// 		console.log("------>TEMPO COMPLETO<------");
-// 	}
-
-// 	//Verifica qual a atual repeticao do teste
-// 	if(contRepet==6){
-// 		console.log("fim do experimento");
-// 		contRepet=0;
-// 	}
-
-
-// }
-
-
 module.exports.continuar = function(app, req, res){
 	if(contRepet<2){
 		res.render('expForc');
-	}else{
+	}else if(contRepet>2 && contRepet<6){
 		res.render('exp');
+	}
+	//Verifica se o teste acabou
+	else if(contRepet==6){
+		if(contBloco < 10){
+			res.render('expForc');
+			console.log("Fim do Bloco");
+			contRepet=0;
+			contA = 0;
+			contB = 0;
+		}
+		else{
+		res.render('fim');
+		console.log("Fim do experimento");
+		contRepet=0;
+		contA = 0;
+		contB = 0;
+		}
 	}
 
 }
