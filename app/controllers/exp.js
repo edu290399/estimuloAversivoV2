@@ -34,11 +34,13 @@ module.exports.envExpA = function(app, req, res){
 	contPasso++;
 	console.log("Passo Agora: "+contPasso);
 	if(contPasso==2){
+			tempoFuga = 10 * 1000;
 			flag = 1 - flag;
-			contTempoFuga();
+			setTimeout(contTempoFuga,5 * 1000);
 			setTimeout(function(){
 				if(flag == 1){
 					res.render('aguarde',{ITI:(40 * 1000)});
+					flag = 0;
 					contPasso = 1;
 					contRepet++;
 					tempoFuga = 10000;
@@ -49,7 +51,7 @@ module.exports.envExpA = function(app, req, res){
 				}else{
 					return;
 				}
-			},10 * 1000)
+			},15 * 1000)
 		}	
 
 
@@ -61,7 +63,6 @@ module.exports.envExpA = function(app, req, res){
 		contA += 1;
 		console.log("RENDENRIZANDO: 25 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
-		tempoFuga = 10 * 1000;
 	}
 
 	//Verifica qual a atual repeticao do teste
@@ -78,13 +79,37 @@ module.exports.envExpA = function(app, req, res){
 module.exports.envExpB = function(app, req, res){
 	contB += 1; 
 	//Verifica qual o atual passo do teste
-	console.log("Passo: "+contPasso);
+	console.log("Passo Antes: "+contPasso);
 	contPasso++;
+	console.log("Passo Agora: "+contPasso);
+	if(contPasso==2){
+		tempoFuga = 15 * 1000;
+		flag = 1 - flag;
+		setTimeout(contTempoFuga,10 * 1000);
+		setTimeout(function(){
+			if(flag == 1){
+				res.render('aguarde',{ITI:(40 * 1000)});
+				flag = 0;
+				contPasso = 1;
+				contRepet++;
+				tempoFuga = 15000;
+				contB += 1;
+				console.log("Repet: "+contRepet);
+				console.log("------>TEMPO COMPLETO<------");
+				return;
+			}else{
+				return;
+			}
+		},25 * 1000)
+	}
 
 	if (contPasso==3){
-		res.render('aguarde');
+		flag = 0;
+		res.render('aguarde',{ITI: (15000 + tempoFuga )});
 		contPasso = 1;
 		contRepet++;
+		contA += 1;
+		console.log("RENDENRIZANDO: 15 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
 	}
 	//Verifica qual a atual repeticao do teste
