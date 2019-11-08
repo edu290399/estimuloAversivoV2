@@ -30,7 +30,11 @@ input{
 }
 #iniciar{
     margin-left: 13.5vh;
+    padding-right: 30px;
+    padding-left: 30px;
 }
 #resultados{
     margin-left: 10vh;
+    padding-right: 25px;
+    padding-left: 25px;
 }

@@ -44,8 +44,14 @@ module.exports.envExpA = function(app, req, res){
 					contPasso = 1;
 					contRepet++;
 					tempoFuga = 10000;
-					contA += 1;
+
+					if(contRepet>2){
+						contA += 1;
+					}
+
 					console.log("Repet: "+contRepet);
+					console.log("Contador A: "+contA);
+					console.log("Contador B: "+contB);
 					console.log("------>TEMPO COMPLETO<------");
 					return;
 				}else{
@@ -60,9 +66,14 @@ module.exports.envExpA = function(app, req, res){
 		res.render('aguarde',{ITI: (25000 + tempoFuga )});
 		contPasso = 1;
 		contRepet++;
-		contA += 1;
 		console.log("RENDENRIZANDO: 25 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
+		console.log("Contador A: "+contA);
+		console.log("Contador B: "+contB);
+
+		if(contRepet>2){
+			contA += 1;
+		}
 	}
 
 	//Verifica qual a atual repeticao do teste
@@ -93,8 +104,14 @@ module.exports.envExpB = function(app, req, res){
 				contPasso = 1;
 				contRepet++;
 				tempoFuga = 15000;
-				contB += 1;
+				
+				if(contRepet>2){
+					contB += 1;
+				}
+
 				console.log("Repet: "+contRepet);
+				console.log("Contador A: "+contA);
+				console.log("Contador B: "+contB);
 				console.log("------>TEMPO COMPLETO<------");
 				return;
 			}else{
@@ -108,11 +125,20 @@ module.exports.envExpB = function(app, req, res){
 		res.render('aguarde',{ITI: (15000 + tempoFuga )});
 		contPasso = 1;
 		contRepet++;
-		contA += 1;
+		
 		console.log("RENDENRIZANDO: 15 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
+		console.log("Contador A: "+contA);
+		console.log("Contador B: "+contB);
+
+		if(contRepet>2){
+			contB += 1;
+		}
 	}
-	//Verifica qual a atual repeticao do teste
+
+
+
+	//Verifica se o teste acabou
 	if(contRepet==6){
 		console.log("fim do experimento");
 		contRepet=0;
