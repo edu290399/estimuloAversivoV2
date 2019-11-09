@@ -5,6 +5,8 @@ var tempoFuga = 10000;
 var flag = 0;
 var contA = 0;
 var contB = 0;
+var atrasoA = 5;
+var atrasoB = 10;
 
 function sleep(time) {
 	return new Promise(function sleeper(resolve) {
@@ -37,7 +39,7 @@ module.exports.envExpA = function(app, req, res){
 	if(contPasso==2){
 			tempoFuga = 10 * 1000;
 			flag = 1 - flag;
-			setTimeout(contTempoFuga,5 * 1000);
+			setTimeout(contTempoFuga,atrasoA * 1000);
 			setTimeout(function(){
 				if(flag == 1){
 					res.render('aguarde',{ITI:(40 * 1000)});
@@ -58,7 +60,7 @@ module.exports.envExpA = function(app, req, res){
 				}else{
 					return;
 				}
-			},15 * 1000)
+			},(10 + atrasoA) * 1000)
 		}	
 
 
@@ -91,7 +93,7 @@ module.exports.envExpB = function(app, req, res){
 	if(contPasso==2){
 		tempoFuga = 15 * 1000;
 		flag = 1 - flag;
-		setTimeout(contTempoFuga,10 * 1000);
+		setTimeout(contTempoFuga,atrasoB * 1000);
 		setTimeout(function(){
 			if(flag == 1){
 				res.render('aguarde',{ITI:(40 * 1000)});
@@ -112,7 +114,7 @@ module.exports.envExpB = function(app, req, res){
 			}else{
 				return;
 			}
-		},25 * 1000)
+		},(15 + atrasoB) * 1000)
 	}
 
 	if (contPasso==3){
@@ -139,15 +141,25 @@ module.exports.envExpB = function(app, req, res){
 
 module.exports.continuar = function(app, req, res){
 	if(contRepet<2){
-		res.render('expForc');
-	}else if(contRepet>2 && contRepet<6){
-		res.render('exp');
+		res.render('expForc',{atrasoB: atrasoB});
+	}else if(contRepet>=2 && contRepet<6){
+		res.render('exp',{atrasoB: atrasoB});
 	}
 	//Verifica se o teste acabou
 	else if(contRepet==6){
 		if(contBloco < 10){
-			res.render('expForc');
-			console.log("Fim do Bloco");
+			if(contA > contB){
+				console.log("Atraso B antes: "+atrasoB);
+				atrasoB--;
+				console.log("Atraso B depois: "+atrasoB);
+			}else if(contB > contA){
+				console.log("Atraso B antes: "+atrasoB);
+				atrasoB++;
+				console.log("Atraso B depois: "+atrasoB);
+
+			}
+			res.render('expForc',{atrasoB : atrasoB});
+			console.log("Fim do Bloco "+ contBloco);
 			contRepet=0;
 			contA = 0;
 			contB = 0;

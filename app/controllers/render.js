@@ -7,10 +7,10 @@ module.exports.index = function(app, req, res){
 }
 
 module.exports.exp = function(app, req, res){
-	res.render('exp');
+	res.render('exp',{atrasoB : 10});
 }
 
 module.exports.expForc = function(app, req, res){
-	res.render('expForc');
+	res.render('expForc',{atrasoB: 10});
 }
 
