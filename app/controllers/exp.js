@@ -1,12 +1,17 @@
 var contPasso = 1;
 var contRepet = 5;
 var contBloco = 1;
+var difAtraso = new Array(5);
 var tempoFuga = 10000;
 var flag = 0;
 var contA = 0;
 var contB = 0;
 var atrasoA = 5;
 var atrasoB = 10;
+var maior = 0;
+var maiorPos = 0;
+var menor = 0;
+var menorPos = 0;
 
 function sleep(time) {
 	return new Promise(function sleeper(resolve) {
@@ -158,18 +163,57 @@ module.exports.continuar = function(app, req, res){
 				console.log("Atraso B depois: "+atrasoB);
 
 			}
-			res.render('expForc',{atrasoB : atrasoB});
+
+			// res.render('expForc',{atrasoB : atrasoB});
+			
 			console.log("Fim do Bloco "+ contBloco);
-			contRepet=0;
+			difAtraso[contBloco] = atrasoB - 10;
+
+			console.log("Posicao do vetor: " + (contBloco) );
+			console.log("Diferenca do atraso: " + difAtraso[contBloco] );
+
+
+			if( (difAtraso[contBloco] - maior) > 0 && (contBloco - maiorPos) <= 5){
+				maior  = difAtraso[contBloco];
+				maiorPos = contBloco	 
+			}
+
+			if( (difAtraso[contBloco] - menor) < 0 && (contBloco - menorPos) <= 5){
+				menor  = difAtraso[contBloco]	 
+			}
+
+			console.log("MENOR: " + menor);
+			console.log("MAIOR: " + maior);
+
+			if (contBloco >=5){
+				if( (maior - menor) > 2 ){
+					console.log("Fim CONDICIONAL do experimento");
+					contRepet=0;
+					contA = 0;
+					contB = 0;
+					contBloco = 0;
+					return res.render('fim') ;
+
+				}else{
+					res.render('exp',{atrasoB : atrasoB});
+					contBloco++;
+				}
+			}else{
+				res.render('exp',{atrasoB : atrasoB});
+				contBloco++;
+			}
+
+			contRepet=5;
 			contA = 0;
 			contB = 0;
 		}
 		else{
-		res.render('fim');
-		console.log("Fim do experimento");
-		contRepet=0;
-		contA = 0;
-		contB = 0;
+			res.render('fim');
+			console.log("Fim do experimento");
+			contRepet=0;
+			contA = 0;
+			contB = 0;
+			contBloco = 0;
 		}
 	}
 
