@@ -7,16 +7,19 @@
 </head>
 
 <body style="overflow: hidden;">
+    <audio id="som"  loop>
+        <source src="../public/SomExperimento.mp3" type="audio/mpeg" >
+     </audio>
 
     <div class="container">
         <form action='/envExpA' method='POST'>
-            <button type="submit" onclick='clickA();' class="botao" id="opA">A</button>
+            <button type="submit" onclick='clickA();playA()' class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
         <form action='/envExpB' method='POST'>
-            <button type="submit" onclick='clickB();' class="botao" id="opB">B</button>
+            <button type="submit" onclick='clickB();playB()' class="botao" id="opB">B</button>
         </form>
     </div>
 
@@ -53,11 +56,23 @@
             // envFormB();
         }, ("<%= atrasoB %>"  * 1000) + (10 * 1000) )
     }
-    // function envFormB(){
-    //     setTimeout(function(){
-    //         document.envExpBComp.submit();
-    //     },5000)
-    // }
+
+    function play(){
+        var som = document.getElementById('som');
+        som.play();
+    }
+
+    function playA(){
+        setTimeout(function(){  
+            play();
+        }, 5 * 1000)
+    }
+
+    function playB(){
+        setTimeout(function(){  
+            play();
+        }, "<%= atrasoB %>" * 1000)
+    }
 
 
 </script>

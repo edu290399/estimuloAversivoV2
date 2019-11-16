@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <title>expForc</title>
     <link rel="stylesheet" type="text/css" href="css/experimento.css">
@@ -8,15 +7,19 @@
 
 <body style="overflow: hidden;" onload="random()">
 
+    <audio id="som"  loop>
+        <source src="../public/SomExperimento.mp3" type="audio/mpeg" >
+     </audio>
+
     <div class="container">
         <form id="formA" action='/envExpA' method='POST'>
-            <button type="submit" onclick="clickA()" class="botao" id="opA" d>A</button>
+            <button type="submit" onclick="clickA();playA()" class="botao" id="opA" d>A</button>
         </form>
     </div>
 
     <div class="container2">
         <form id="formB" action='/envExpB' method='POST'>
-            <button type="submit" onclick="clickB()" class="botao" id="opB">B</button>
+            <button type="submit" onclick="clickB();playB()" class="botao" id="opB">B</button>
         </form>
     </div>
 
@@ -67,6 +70,23 @@
         setTimeout(function(){  
             document.getElementById("opB").style.display  = "block";
         }, "<%= atrasoB %>"  * 1000 + 10 * 1000) 
+    }
+
+    function play(){
+        var som = document.getElementById('som');
+        som.play();
+    }
+
+    function playA(){
+        setTimeout(function(){  
+            play();
+        }, 5 * 1000)
+    }
+
+    function playB(){
+        setTimeout(function(){  
+            play();
+        }, "<%= atrasoB %>" * 1000)
     }
 
     // function envFormB(){
