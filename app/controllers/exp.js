@@ -3,9 +3,9 @@ var contPasso = 1;
 //Contador para determinar a tentativa
 var contRepet = 5;
 //Contador para determinar o bloco
-var contBloco = 1;
+var contBloco = 0;
 //Array com as diferencas de atraso em relacao ao inicial de B (10s)
-var difAtraso = new Array(10);
+var difAtraso = new Array(5);
 //Tempo no qual se escuta o som
 var tempoFuga = 10000;
 //flag para verificar se a opcao foi enviada via click
@@ -43,6 +43,41 @@ function reinicia(){
 	var menor = 0;
 	var menorPos = 0;
 	console.log("Reiniciando variaveis...")
+}
+
+function organiza(args){
+	var aux;
+	for (cont=4; cont >= 0; cont --){
+		aux = args[cont];
+		args[cont] = args[cont-1];
+		console.log(args[cont-1] + " --> "+aux );
+	}
+}
+
+function maiorFunc(args){
+
+	maior = args[0];
+	for (var cont = 0; cont < 5; cont++){
+		if( (args[cont] - maior) > 0 ){
+			maior = args[cont];
+			maiorPos = cont;
+		}
+	}
+	console.log("Maior: "+maior);
+	console.log("Posicao do Maior: "+maiorPos);
+}
+
+function menorFunc(args){
+	menor = args[0];
+	for (var cont = 0; cont < 5; cont++){
+		if( (args[cont] - menor) < 0 ){
+			menor = args[cont];
+			menorPos = cont;
+		}
+	}
+	console.log("Menor: "+menor);
+	console.log("Posicao do Menor: "+menorPos);
+
 }
 
 //Funcao para determinar o tempo de fuga
@@ -199,59 +234,51 @@ module.exports.continuar = function(app, req, res){
 			//decrementa atraso de B
 			if(contA > contB){
 				console.log("Atraso B antes: "+atrasoB);
-				atrasoB--;
+				atrasoB++;
 				console.log("Atraso B depois: "+atrasoB);
 			}
 			//incrementa atraso de B
 			else if(contB > contA){
 				console.log("Atraso B antes: "+atrasoB);
-				atrasoB++;
+				atrasoB--;
 				console.log("Atraso B depois: "+atrasoB);
 
 			}
+			else
+				console.log("Atraso em B mantido");
 
-			// res.render('expForc',{atrasoB : atrasoB});
-			
-			console.log("Fim do Bloco "+ contBloco);
-			//salva a diferenca de atraso de B no bloco, em relacao ao valor 
-			difAtraso[contBloco] = atrasoB - 10;
+		
+			console.log("Fim do Bloco "+ (contBloco+1));
+			//salva a diferenca de atraso de B no bloco, em relacao ao valor de referencia
 
-			console.log("Posicao do vetor: " + (contBloco) );
-			console.log("Diferenca do atraso: " + difAtraso[contBloco] );
-			//verifica se eh o maior atraso
-			if( (difAtraso[contBloco] - maior) > 0){
-				maior  = difAtraso[contBloco];
-				maiorPos = contBloco	 
-			}
-			//verifica se eh o menor atraso
-			if( (difAtraso[contBloco] - menor) < 0){
-				menor  = difAtraso[contBloco];
-				menorPos = contBloco;	 
+			if (contBloco < 5){
+			difAtraso[4-contBloco] = atrasoB - 10;
+			console.log("Posicao do vetor: " + (4-contBloco) );
+			console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
 			}
 
-			console.log("MENOR: " + menor);
-			console.log("MAIOR: " + maior);
-			console.log("Posicao do MAIOR: " + maiorPos );
-			console.log("Posicao do MENOR:  " + menorPos );
 
 			//verifica se ja eh possivel comparar os conjuntos de blocos
 			if (contBloco >=5){
-				//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2
-				if( (maior - menor) <= 2 && ( (maiorPos - menorPos) < 5 || (maiorPos - menorPos) > -5   ) ){
-					console.log("Fim CONDICIONAL I do experimento");
-					reinicia();
-					//caso seja, encerra o experimento
-					return res.render('fim') ;
-				//verifica se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
-				}else if( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) {
-					console.log("Fim CONDICIONAL II do experimento");
-					reinicia();
-					//caso sejam, o experimento eh encerrado
-					return res.render('fim') ;
-				}else{
-					res.render('exp',{atrasoB : atrasoB});
-					contBloco++;
-				}
+				organiza(difAtraso);
+				difAtraso[0] = atrasoB - 10;
+				maiorFunc(difAtraso);
+				menorFunc(difAtraso);
+
+
+				console.log("Atraso[0]: "+difAtraso[0]);
+
+
+				//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2 e se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
+				 if( (maior - menor) <= 2  && ( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
+				 	console.log("Fim CONDICIONAL do experimento");
+				 	reinicia();
+				 	//caso seja, encerra o experimento
+				 	return res.render('fim') ;
+				 }else{
+				 	res.render('exp',{atrasoB : atrasoB});
+				 	contBloco++;
+				 }
 			}else{
 				res.render('exp',{atrasoB : atrasoB});
 				contBloco++;
