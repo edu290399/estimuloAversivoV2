@@ -14,3 +14,6 @@ module.exports.expForc = function(app, req, res){
 	res.render('expForc',{atrasoB: 10});
 }
 
+module.exports.configRender = function(app, req, res){
+	res.render('config');
+}

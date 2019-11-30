@@ -1,0 +1,58 @@
+.container {
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    top:40%;
+    left:47.5%;
+    margin-top:-100px;
+    margin-left:-100px;
+    align-items: center;
+}
+
+input{
+    font-size: 20px;
+    display: block;
+}
+body{
+        overflow: hidden;
+} 
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1cm;
+}
+input{
+    margin-bottom: 10px;
+    border-color: black;
+    border-width: 1.5px;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+#difOn{
+    margin-top: 5% ;
+    margin-bottom: 5% ;
+    margin-left: 4%;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    outline: 2px solid black;
+
+}
+
+#definir{
+    margin-top: 1.5%;
+    margin-left: 6%;
+    padding-right: 15px ;
+    padding-left: 15px ;
+}
+
+#label{
+    font-size: 0.5cm;
+    border: none;
+    display: inline-block;
+    padding: 0px;
+    width: 100px;
+    
+}

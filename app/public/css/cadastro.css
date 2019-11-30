@@ -22,19 +22,24 @@ input{
     width:100vw;
     height:100vh;
     position:absolute;
-    top:40%;
+    top:30%;
     left:47.5%;
     margin-top:-100px;
     margin-left:-100px;
     align-items: center;
 }
 #iniciar{
-    margin-left: 13.5vh;
+    margin-left: 13vh;
     padding-right: 30px;
     padding-left: 30px;
 }
 #resultados{
     margin-left: 10vh;
+    padding-right: 25px;
+    padding-left: 25px;
+}
+#config{
+    margin-left: 8vh;
     padding-right: 25px;
     padding-left: 25px;
 }
