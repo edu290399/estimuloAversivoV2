@@ -7,22 +7,49 @@
         <form autocomplete="off" action='/' method='GET'>	
             <h2><input type="submit" id="resultados" value="Voltar" name="HOME"></input></h2>
         </form>
-        <h1>Configurações</h1>  
+        
 	</head>
 <div class="container">		
 
         <head>
 
- 
+                <h1>Configurações</h1>  
                
 
                 
         </head>
        
         <body>
-                        
+
+                <h2>Configurações Atuais</h2>
+
+		<table>
+			
+			<tr>
+				
+				<th>Usar fator</th>
+                <th>Fator (segundos)</th>
+
+
+				
+			</tr>
+	
+			
+				
+				<tr>
+
+
+					<td> <%= difOnTd %> </td>
+                    <td> <%= difMinTd %> </td>
+
+				</tr>
+           
+
+		</table>
+
+
                         <form action = '/configurar' method= 'post'>
-                        <input title="Usar fator" type="checkbox" name="difOn" id="difOn">
+                        <input title="Usar fator" placeholder="off" type="checkbox" name="difOn" id="difOn">
                             <input id="label" value="Usar fator">
                          </input>
                         <input  type="number" name="difMin" placeholder="Fator de Diferença (s)"  required></input>

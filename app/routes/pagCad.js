@@ -5,7 +5,11 @@ module.exports = function(app){
     });
 
     app.post('/config',function(req,res){
-        app.app.controllers.render.configRender(app,req,res);
+        app.app.model.configModel.lastConfig(app,req,res);
+    });
+
+    app.post('/configurar',function(req,res){
+        app.app.model.configModel.configurar(app,req,res);
     });
     
 }

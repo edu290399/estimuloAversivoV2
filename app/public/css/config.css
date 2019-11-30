@@ -9,6 +9,19 @@
     align-items: center;
 }
 
+table{
+    
+    font-size: 21px;
+    width: 20%;
+    padding: 1%;
+    border: 1px solid black;
+   
+}
+
+td{
+    text-align: center;
+}
+
 input{
     font-size: 20px;
     display: block;
@@ -18,8 +31,12 @@ body{
 } 
 h1{
     font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
     font-size: 1cm;
+    margin-top: -8%;
+    margin-bottom: 5%;
+}
+h2{
+    margin-left: 2%;
 }
 input{
     margin-bottom: 10px;
@@ -31,7 +48,7 @@ input{
 }
 
 #difOn{
-    margin-top: 5% ;
+    margin-top: 2% ;
     margin-bottom: 5% ;
     margin-left: 4%;
     height: 20px;

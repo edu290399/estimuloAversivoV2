@@ -1,21 +1,61 @@
 module.exports.configurar = function(app,req,res){ 
-  
- 
-    
-
-    //var sujeito = req.body;
+    var config = req.body;
+    var mensagem = config.difOn;
+    var ligadoDB;
+    var ligadoRender;
+    var tempoDB = config.difMin;
+    var tempoRender;
+    if( mensagem == "on" ){
+      ligadoDB = 1;
+      ligadoRender = "sim";
+      tempoRender = tempoDB;
+    }else{
+      ligadoDB = 0;
+      ligadoRender = "não";
+      tempoRender = " - ";
+    }
     var db = require('../../config/connection');
     db.conectar.serialize(() => {
-      db.conectar.each("DELETE FROM config","INSERT INTO config ('difOn','difMin') VALUES ('"
-       + sujeito.nome + "', '" + sujeito.idade + "', '" + sujeito.sexo + "' );",
-      console.log("DifOn:  " + sujeito.nome + "  /   DifMin: " + sujeito.sexo ),
+      db.conectar.each("INSERT INTO config ('difOn','difMin') VALUES ('"
+       + ligadoDB + "', '" + tempoDB + "')",
+      console.log("DifOn:  " + ligadoDB + "  /   DifMin: " + config.difMin ),
       db.conectar.close,console.log("--> Conexao encerrada <--"),
        (err, row) => {
         if (err) {
           console.error(err.message);
           return;
-        }
-      }),res.render('config');
+        }}),res.render('config',{difOnTd:ligadoRender,difMinTd:tempoRender});
     });
+}
 
+module.exports.lastConfig = function(app,req,res){ 
+  var db = require('../../config/connection');
+  db.conectar.serialize(() => {
+    db.conectar.all("SELECT * FROM config ORDER BY idConfig desc limit 1",[],
+    (err,rows) => {
+      
+      var difMinDB;
+      var difOnDB;
+      rows.forEach((row) => {
+      difMinDB = row.difMin;
+      difOnDB = row.difOn;
+      });
+      if(difOnDB == 1){
+        difOnDB = "sim";
+      }else{
+        difOnDB = "não";
+      };
+      res.render('config',{difOnTd:difOnDB,difMinTd:difMinDB});
+
+    }),db.conectar.close,console.log("--> Conexao encerrada config <--");
+  });
+
+  // db.all(sql, [], (err, rows) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   rows.forEach((row) => {
+  //     console.log(row.name);
+  //   });
+  // });
 }
