@@ -115,6 +115,7 @@ module.exports.envExpA = function(app, req, res){
 			setTimeout(function(){
 				if(flag == 1){
 					res.render('aguarde',{ITI:(40 * 1000)});
+					app.app.model.expModel.enviarDbA(contBloco,contRepet,40,atrasoB,"TREINO");
 					flag = 0;
 					contPasso = 1;
 					contRepet++;
@@ -139,6 +140,7 @@ module.exports.envExpA = function(app, req, res){
 	if (contPasso==3){
 		flag = 0;
 		res.render('aguarde',{ITI: (25000 + tempoFuga )});
+		app.app.model.expModel.enviarDbA(contBloco,contRepet,(25 + tempoFuga / 1000),atrasoB,"TREINO");
 		contPasso = 1;
 		contRepet++;
 		console.log("RENDENRIZANDO: 25 +"+tempoFuga/1000);
@@ -174,6 +176,7 @@ module.exports.envExpB = function(app, req, res){
 		setTimeout(function(){
 			if(flag == 1){
 				res.render('aguarde',{ITI:(40 * 1000)});
+				app.app.model.expModel.enviarDbB(contBloco,contRepet,40,atrasoB,"TREINO");
 				flag = 0;
 				contPasso = 1;
 				contRepet++;
@@ -199,6 +202,7 @@ module.exports.envExpB = function(app, req, res){
 		//seta a flag
 		flag = 0;
 		res.render('aguarde',{ITI: (15000 + tempoFuga )});
+		app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,"TREINO");
 		//reincia o passo
 		contPasso = 1;
 		contRepet++;
@@ -219,8 +223,16 @@ module.exports.envExpB = function(app, req, res){
 	}
 
 }
+
+
+
 //continuacao da tela de espera
-module.exports.continuar = function(app, req, res){
+module.exports.continuar = function(app,req,res){
+	var lastConfigModel = require("../model/configModel");
+	console.log("DIF MIN EXPO ---> "+lastConfigModel.vars.difMinExpo);
+	console.log("DIF ON EXPO ----> "+lastConfigModel.vars.difOnExpo);
+	var difOn = lastConfigModel.vars.difOnExpo;
+	var difMin = lastConfigModel.vars.difMinExpo;
 	//verifica se ainda esta na etapa forcada
 	if(contRepet<2){
 		res.render('expForc',{atrasoB: atrasoB});
@@ -257,32 +269,40 @@ module.exports.continuar = function(app, req, res){
 			console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
 			}
 
-
+			console.log("ON --->" + difOn);
+			console.log("MIN --->" + difMin);
 			//verifica se ja eh possivel comparar os conjuntos de blocos
-			if (contBloco >=5){
-				organiza(difAtraso);
-				difAtraso[0] = atrasoB - 10;
-				maiorFunc(difAtraso);
-				menorFunc(difAtraso);
+			if(difOn == 1){
+				console.log("COMPARANDO BLOCOS... CRITERIO ---> " + difMin +" segundos");
+				if (contBloco >=5){
+					organiza(difAtraso);
+					difAtraso[0] = atrasoB - 10;
+					maiorFunc(difAtraso);
+					menorFunc(difAtraso);
 
 
-				console.log("Atraso[0]: "+difAtraso[0]);
+					console.log("Atraso[0]: "+difAtraso[0]);
 
 
-				//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2 e se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
-				 if( (maior - menor) <= 2  && ( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
-				 	console.log("Fim CONDICIONAL do experimento");
-				 	reinicia();
-				 	//caso seja, encerra o experimento
-				 	return res.render('fim') ;
-				 }else{
-				 	res.render('exp',{atrasoB : atrasoB});
-				 	contBloco++;
-				 }
+					//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2 e se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
+					if( (maior - menor) <= difMin  && ( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
+						console.log("Fim CONDICIONAL do experimento");
+						reinicia();
+						//caso seja, encerra o experimento
+						return res.render('fim') ;
+					}else{
+						res.render('exp',{atrasoB : atrasoB});
+						contBloco++;
+					}
+				}else{
+					res.render('exp',{atrasoB : atrasoB});
+					contBloco++;
+				}
 			}else{
+				console.log("COMPARACAO ENTRE BLOCOS DESLIGADA");
 				res.render('exp',{atrasoB : atrasoB});
 				contBloco++;
-			}
+			}	
 
 			contRepet=5;
 			contA = 0;

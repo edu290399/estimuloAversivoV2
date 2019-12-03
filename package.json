@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "tsc && copyfiles *.html dist/",
@@ -27,6 +26,7 @@
     "express-session": "^1.17.0",
     "express-validator": "^6.2.0",
     "jquery": "^3.4.1",
+    "sqlite-sync": "^0.3.9",
     "sqlite3": "^4.1.0",
     "typescript": "^3.6.4"
   }

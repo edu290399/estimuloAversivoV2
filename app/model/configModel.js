@@ -1,3 +1,4 @@
+
 module.exports.configurar = function(app,req,res){ 
     var config = req.body;
     var mensagem = config.difOn;
@@ -44,18 +45,22 @@ module.exports.lastConfig = function(app,req,res){
         difOnDB = "sim";
       }else{
         difOnDB = "não";
+        difMinDB = " - "
       };
       res.render('config',{difOnTd:difOnDB,difMinTd:difMinDB});
 
     }),db.conectar.close,console.log("--> Conexao encerrada config <--");
   });
-
-  // db.all(sql, [], (err, rows) => {
-  //   if (err) {
-  //     throw err;
-  //   }
-  //   rows.forEach((row) => {
-  //     console.log(row.name);
-  //   });
-  // });
 }
+
+module.exports.lastConfigJS = function(){ 
+
+  var sqliteSync = require('sqlite-sync');
+  sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
+  var rows = sqliteSync.run("SELECT * FROM config ORDER BY idConfig desc limit 1;");
+  difMinExpo = (rows[0].difMin);
+  difOnExpo = (rows[0].difOn);
+  return module.exports.vars =  {difOnExpo,difMinExpo};
+}
+
+

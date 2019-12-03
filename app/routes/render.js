@@ -8,6 +8,7 @@ module.exports = function(app){
 	});
 
 	app.post('/intro',function(req,res){
+		app.app.model.configModel.lastConfigJS();
 		app.app.controllers.render.intro(app,req,res);
 	});
 
