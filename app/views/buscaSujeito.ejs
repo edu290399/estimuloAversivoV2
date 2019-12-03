@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+	<html lang="pt-br">
+		<head>
+			<meta charset="utf-8"/>
+			<title>Registro Sujeito</title>
+			<link rel="stylesheet" type="text/css" href="css/busca.css">
+			<form autocomplete="off" action='/' method='GET'>	
+				<h1><input type="submit" class="botao" id="resultados" value="Voltar" name="HOME"></input></h1>
+			</form>
+		</head>
+	<body>
+
+		<h2>Registros de Sujeito</h2>
+
+		<table>
+			
+			<tr>
+				
+				<th>ID</th>
+                <th>Nome</th>
+				<th>Idade</th>
+				<th>Sexo</th>
+				<th>Configuração</th>
+				
+			</tr>
+			<% if(sujeito){ %>
+			<% for(var i = 0; i < sujeito.length; i++){ %>
+				
+				<tr>
+
+					<td><%= sujeito[i].id %></td>
+                    <td><%= sujeito[i].nome%></td>
+					<td><%= sujeito[i].idade%></td>
+					<td><%= sujeito[i].sexo%></td>
+					<td>
+						<form action = '/buscaConfigDefinida' method = 'post'>
+							<input class = 'id' id='IdConfig' type='submit' name='IdConfig' value='<%= sujeito[i].config%>'>
+						</form>
+					</td>
+
+				</tr>
+			<% } } %>
+
+		</table>
+
+	</body>
+</html>

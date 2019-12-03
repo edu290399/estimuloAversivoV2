@@ -38,6 +38,12 @@ input{
     padding-right: 25px;
     padding-left: 25px;
 }
+#buscaSujeito{
+    margin-left: 10vh;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
 #config{
     margin-left: 8vh;
     padding-right: 25px;

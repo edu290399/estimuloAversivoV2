@@ -23,3 +23,7 @@ module.exports.expForc = function(app, req, res){
 module.exports.configRender = function(app, req, res){
 	res.render('config');
 }
+
+module.exports.buscaSujeito = function(app, req, res){
+	res.render('buscaSujeito');
+}

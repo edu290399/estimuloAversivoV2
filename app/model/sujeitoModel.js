@@ -26,4 +26,14 @@
           });
         })
  }
+
+ module.exports.buscaSujeito = function(app,req,res){
+  var sqliteSync = require('sqlite-sync');
+  sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
+  var rows = sqliteSync.run("SELECT * FROM sujeitos ORDER BY id desc;");
+  res.render('buscaSujeito',{sujeito:rows});
+  sqliteSync.close;
+}
+
+ 
     

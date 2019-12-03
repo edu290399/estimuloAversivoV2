@@ -60,6 +60,7 @@ module.exports.lastConfigJS = function(){
   var rows = sqliteSync.run("SELECT * FROM config ORDER BY idConfig desc limit 1;");
   difMinExpo = (rows[0].difMin);
   difOnExpo = (rows[0].difOn);
+  sqliteSync.close;
   return module.exports.vars =  {difOnExpo,difMinExpo};
 }
 

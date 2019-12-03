@@ -51,28 +51,28 @@ th{
 
 h1{
     margin-left: 5%;
-    margin-top: -0.8%;
-    
+}
+
+.idConfig{
+    margin-left: 5%;
 }
 
 
-.HOME{
-    font-size: 20px;
-    padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-image: linear-gradient(to bottom right,rgb(231, 219, 219), rgb(80, 72, 72));
+.botao{
+    background-color: darkslategray;
+    color: white;
+    margin-bottom: 10px;
+    border-color: black;
+    border-width: 1.5px;
     border-radius: 5px;
-    font-family: 'Times New Roman', Times, serif;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    display: block;
+
 }
 
-.HOME:hover{
-    background-image: linear-gradient(to bottom right,rgb(102, 86, 86), rgb(48, 40, 40));
-    color: antiquewhite;
-}
-
-.id
-{
+.id{
     width: fit-content;
     border-radius: 3px;
 }

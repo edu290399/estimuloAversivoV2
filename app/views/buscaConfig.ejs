@@ -1,0 +1,36 @@
+<html>
+        
+	<head>
+		<title>Configuracoes</title>
+        <link rel="stylesheet" type="text/css" href="css/busca.css">
+        
+        <form autocomplete="off" action='/' method='GET'>	
+            <h1><input type="submit" class="botao" id="resultados" value="Voltar" name="HOME"></input></h1>
+        </form>
+            <h2>Registro de Configuração</h2>
+        
+	</head>
+
+
+       
+        <body>
+       
+
+		<table>	
+			<tr>
+                <th>ID</th>	
+				<th>Usar fator</th>
+                <th>Fator (segundos)</th>		
+			</tr>
+		
+			<tr>
+                <td> <%= config[0].idConfig %> </td>
+				<td> <%= config[0].difOn %> </td>
+                <td> <%= config[0].difMin %> </td>
+			</tr>
+		</table>
+
+        </body>
+</div>
+
+</html>

@@ -11,5 +11,5 @@ module.exports = function(app){
     app.post('/configurar',function(req,res){
         app.app.model.configModel.configurar(app,req,res);
     });
-    
+
 }
