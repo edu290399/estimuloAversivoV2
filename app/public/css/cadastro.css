@@ -28,6 +28,9 @@ input{
     margin-left:-100px;
     align-items: center;
 }
+.alinhamento{
+    margin-left: 1%;
+}
 #iniciar{
     margin-left: 13vh;
     padding-right: 30px;

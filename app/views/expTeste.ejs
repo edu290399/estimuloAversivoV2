@@ -1,25 +1,25 @@
 <html>
+
 <head>
-    <title>expForc</title>
+    <title>EXP</title>
     <link rel="stylesheet" type="text/css" href="css/experimento.css">
 
 </head>
 
-<body style="overflow: hidden;" onload="random()">
-
+<body style="overflow: hidden;">
     <audio id="som" preload="auto"  loop>
         <source src="../public/SomExperimento.mp3" type="audio/mpeg" >
      </audio>
 
     <div class="container">
-        <form id="formA" action='/envExpA' method='POST'>
-            <button type="submit" onclick="clickA();playA()" class="botao" id="opA" d>A</button>
+        <form action='/envExpATeste' method='POST'>
+            <button type="submit" onclick='clickA();playA()' class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
-        <form id="formB" action='/envExpB' method='POST'>
-            <button type="submit" onclick="clickB();playB()" class="botao" id="opB">B</button>
+        <form action='/envExpBTeste' method='POST'>
+            <button type="submit" onclick='clickB();playB()' class="botao" id="opB">B</button>
         </form>
     </div>
 
@@ -29,24 +29,8 @@
 
 </html>
 
-<script>
-	function random(){
-		min = Math.ceil(3);
-		max = Math.floor(1);
-		var preRand = Math.floor(Math.random() * (max - min)) + min;
-		var rand = preRand%2;
-		console.log(rand);
-		if(rand == 0){
-			document.getElementById("formA").style.display  = "none";
-        }
-        if(rand == 1){
-            document.getElementById("formB").style.display  = "none";
-        }
-    }
-    
-    
+<script type="text/javascript">
     var tempo = 0;
-
     function clickA() {
         console.log("opA");
         console.log(tempo);
@@ -67,9 +51,10 @@
         }, 10 * 1000)
     }
     function apareceB(){
-        setTimeout(function(){  
+        setTimeout(function(){
             document.getElementById("opB").style.display  = "block";
-        }, "<%= atrasoB %>"  * 1000 + 10 * 1000) 
+            // envFormB();
+        }, ("<%= atrasoB %>"  * 1000) + (10 * 1000) )
     }
 
     function play(){
@@ -89,10 +74,5 @@
         }, "<%= atrasoB %>" * 1000)
     }
 
-    // function envFormB(){
-    //     setTimeout(function(){
-    //         document.envExpBComp.submit();
-    //     },5000)
-    // }
 
 </script>

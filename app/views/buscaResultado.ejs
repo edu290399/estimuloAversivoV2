@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+	<html lang="pt-br">
+		<head>
+			<meta charset="utf-8"/>
+			<title>Registro Experimento</title>
+			<link rel="stylesheet" type="text/css" href="css/busca.css">
+			<form autocomplete="off" action='/' method='GET'>	
+				<h1><input type="submit" class="botao" id="resultados" value="Voltar" name="HOME"></input></h1>
+			</form>
+		</head>
+	<body>
+
+		<h2>Registros do Experimento</h2>
+
+		<table>
+			
+			<tr>
+				
+                <th>ID</th>
+                <th>ID Sujeito</th>
+                <th>Bloco</th>
+				<th>Tentativa</th>
+				<th>Opção</th>
+                <th>ITI</th>
+                <th>Atraso B</th>
+                <th>Fase</th>
+                <th>Hora / Data</th>
+                <th>Config</th>
+				
+			</tr>
+			<% if(experimento){ %>
+			<% for(var i = 0; i < experimento.length; i++){ %>
+				
+				<tr>
+
+                    <td><%= experimento[i].id %></td>
+                    <td>
+						<form action = '/buscaExpSujeito' method = 'post'>
+							<input class = 'id' id='IdSujeito' type='submit' name='IdSujeito' value='<%= experimento[i].idSujeito %>'>
+						</form>
+					</td>
+                    <td><%= experimento[i].bloco %></td>
+                    <td><%= experimento[i].tentativa %></td>
+                    <td><%= experimento[i].opcao %></td>
+                    <td><%= experimento[i].ITI %></td>
+                    <td><%= experimento[i].atrasoB %></td>
+                    <td><%= experimento[i].fase %></td>
+                    <td><%= experimento[i].datahora %></td>
+					<td>
+						<form action = '/buscaConfigDefinida' method = 'post'>
+							<input class = 'id' id='IdConfig' type='submit' name='IdConfig' value='<%= experimento[i].config%>'>
+						</form>
+					</td>
+
+				</tr>
+			<% } } %>
+
+		</table>
+
+	</body>
+</html>

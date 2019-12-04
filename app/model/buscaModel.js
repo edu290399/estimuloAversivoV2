@@ -11,3 +11,19 @@ module.exports.buscaConfigDefinida = function(app,req,res,idConfig){
     sqliteSync.close;
     res.render('buscaConfig',{config:rows});
   }
+
+  module.exports.buscaExpSujeito = function(app,req,res,idSujeito){
+    var sqliteSync = require('sqlite-sync');
+    sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
+    var rows = sqliteSync.run("SELECT * FROM sujeitos where id = ('"+ idSujeito + "')");
+    sqliteSync.close;
+    res.render('buscaSujeito',{sujeito:rows});
+  }
+
+  module.exports.buscaExp = function(app,req,res){
+    var sqliteSync = require('sqlite-sync');
+    sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
+    var rows = sqliteSync.run("SELECT * FROM experimento ORDER BY id desc");
+    sqliteSync.close;
+    res.render('buscaResultado',{experimento:rows});
+  }

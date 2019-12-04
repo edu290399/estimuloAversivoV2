@@ -13,6 +13,8 @@
 				<output> aguarde </output>
 						
 			</form>
+
+			<form action = '/continuarTeste' name="continuarTeste" method='GET'/>
 		
 		</div>
 	</body>
@@ -20,10 +22,20 @@
 </html>
 
 <script>
-	setTimeout(function(){  
-		document.continuar.submit();
-		console.log("<%=ITI%>");
-	}, "<%= ITI %>");
+	if("<%= fase %>" == "TREINO"){
+		console.log(">>>>TREINO<<<")
+		setTimeout(function(){  
+			document.continuar.submit();
+			console.log("<%=ITI%>");
+		}, "<%= ITI %>");
+	}
 
+	if("<%= fase %>" == "TESTE"){
+		console.log(">>>>TREINO<<<")
+		setTimeout(function(){  
+			document.continuarTeste.submit();
+			console.log("<%=ITI%>");
+		}, "<%= ITI %>");
+	}
 
 </script>

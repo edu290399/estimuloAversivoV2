@@ -1,7 +1,7 @@
 //Contador para determinar se a opcao foi selecionada ou enviada
 var contPasso = 1;
 //Contador para determinar a tentativa
-var contRepet = 5;
+var contRepet = 0;
 //Contador para determinar o bloco
 var contBloco = 0;
 //Array com as diferencas de atraso em relacao ao inicial de B (10s)
@@ -96,7 +96,7 @@ function menorFunc(args){
 }
 
 //Envio da opcao A
-module.exports.envExpA = function(app, req, res){
+module.exports.envExpA = function(app, req, res, fase){
 	
 	//Verifica qual o atual passo do teste
 	console.log("Passo Antes: "+contPasso);
@@ -114,8 +114,8 @@ module.exports.envExpA = function(app, req, res){
 			//faz envio automatico apos 5 segundos de som facultativo
 			setTimeout(function(){
 				if(flag == 1){
-					res.render('aguarde',{ITI:(40 * 1000)});
-					app.app.model.expModel.enviarDbA(contBloco,contRepet,40,atrasoB,"TREINO");
+					res.render('aguarde',{ITI:(40 * 1000),  fase: fase});
+					app.app.model.expModel.enviarDbA(contBloco,contRepet,40,atrasoB,fase);
 					flag = 0;
 					contPasso = 1;
 					contRepet++;
@@ -139,8 +139,8 @@ module.exports.envExpA = function(app, req, res){
 	//verifica se o click eh de envio
 	if (contPasso==3){
 		flag = 0;
-		res.render('aguarde',{ITI: (25000 + tempoFuga )});
-		app.app.model.expModel.enviarDbA(contBloco,contRepet,(25 + tempoFuga / 1000),atrasoB,"TREINO");
+		res.render('aguarde',{ITI: (25000 + tempoFuga ),  fase: fase});
+		app.app.model.expModel.enviarDbA(contBloco,contRepet,(25 + tempoFuga / 1000),atrasoB,fase);
 		contPasso = 1;
 		contRepet++;
 		console.log("RENDENRIZANDO: 25 +"+tempoFuga/1000);
@@ -160,7 +160,7 @@ module.exports.envExpA = function(app, req, res){
 
 }
 
-module.exports.envExpB = function(app, req, res){
+module.exports.envExpB = function(app, req, res , fase){
 	//Verifica qual o atual passo do teste
 	console.log("Passo Antes: "+contPasso);
 	contPasso++;
@@ -175,8 +175,8 @@ module.exports.envExpB = function(app, req, res){
 		//faz envio automatico apos 5 segundos de som facultativo
 		setTimeout(function(){
 			if(flag == 1){
-				res.render('aguarde',{ITI:(40 * 1000)});
-				app.app.model.expModel.enviarDbB(contBloco,contRepet,40,atrasoB,"TREINO");
+				res.render('aguarde',{ITI:(40 * 1000),  fase: fase});
+				app.app.model.expModel.enviarDbB(contBloco,contRepet,40,atrasoB,fase);
 				flag = 0;
 				contPasso = 1;
 				contRepet++;
@@ -201,8 +201,8 @@ module.exports.envExpB = function(app, req, res){
 	if (contPasso==3){
 		//seta a flag
 		flag = 0;
-		res.render('aguarde',{ITI: (15000 + tempoFuga )});
-		app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,"TREINO");
+		res.render('aguarde',{ITI: (15000 + tempoFuga ), fase: fase});
+		app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,fase);
 		//reincia o passo
 		contPasso = 1;
 		contRepet++;
@@ -227,7 +227,7 @@ module.exports.envExpB = function(app, req, res){
 
 
 //continuacao da tela de espera
-module.exports.continuar = function(app,req,res){
+module.exports.continuar = function(app,req,res,fase){
 	var lastConfigModel = require("../model/configModel");
 	console.log("DIF MIN EXPO ---> "+lastConfigModel.vars.difMinExpo);
 	console.log("DIF ON EXPO ----> "+lastConfigModel.vars.difOnExpo);
@@ -235,14 +235,17 @@ module.exports.continuar = function(app,req,res){
 	var difMin = lastConfigModel.vars.difMinExpo;
 	//verifica se ainda esta na etapa forcada
 	if(contRepet<2){
+		console.log("ContRepet < 2");
 		res.render('expForc',{atrasoB: atrasoB});
 	}else if(contRepet>=2 && contRepet<6){
+		console.log("ContRepet >= 2 e < 6");
 		res.render('exp',{atrasoB: atrasoB});
 	}
 	//Verifica se o bloco acabou acabou
 	else if(contRepet==6){
+		console.log("ContRepet >= 6");
 		//verifica se o teste acabou
-		if(contBloco < 10){
+		if(contBloco < 10 && fase == "TREINO"){
 			//decrementa atraso de B
 			if(contA > contB){
 				console.log("Atraso B antes: "+atrasoB);
@@ -263,7 +266,7 @@ module.exports.continuar = function(app,req,res){
 			console.log("Fim do Bloco "+ (contBloco+1));
 			//salva a diferenca de atraso de B no bloco, em relacao ao valor de referencia
 
-			if (contBloco < 5){
+			if (contBloco < 4){
 			difAtraso[4-contBloco] = atrasoB - 10;
 			console.log("Posicao do vetor: " + (4-contBloco) );
 			console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
@@ -274,7 +277,7 @@ module.exports.continuar = function(app,req,res){
 			//verifica se ja eh possivel comparar os conjuntos de blocos
 			if(difOn == 1){
 				console.log("COMPARANDO BLOCOS... CRITERIO ---> " + difMin +" segundos");
-				if (contBloco >=5){
+				if (contBloco >=4){
 					organiza(difAtraso);
 					difAtraso[0] = atrasoB - 10;
 					maiorFunc(difAtraso);
@@ -286,16 +289,20 @@ module.exports.continuar = function(app,req,res){
 
 					//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2 e se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
 					if( (maior - menor) <= difMin  && ( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
-						console.log("Fim CONDICIONAL do experimento");
-						reinicia();
-						//caso seja, encerra o experimento
-						return res.render('fim') ;
+						console.log("Fim CONDICIONAL da fase de Treino");
+						 contPasso = 1;
+						 contRepet = 0;
+						 contBloco = 0;
+						 flag = 0;
+						 contA = 0;
+						 contB = 0;
+						return 	(res.render('expForcTeste'),console.log("Mudando para o modo >>>TESTE<<<"));
 					}else{
-						res.render('exp',{atrasoB : atrasoB});
+						res.render('expForc',{atrasoB : atrasoB});
 						contBloco++;
 					}
 				}else{
-					res.render('exp',{atrasoB : atrasoB});
+					res.render('expForc',{atrasoB : atrasoB});
 					contBloco++;
 				}
 			}else{
@@ -304,15 +311,21 @@ module.exports.continuar = function(app,req,res){
 				contBloco++;
 			}	
 
-			contRepet=5;
+			contRepet=0;
 			contA = 0;
 			contB = 0;
 		}
-		else{
+		else if (fase == "TESTE"){
 			res.render('fim');
 			console.log("Fim do experimento");
 			reinicia();
 		}
+		else{
+			res.render('descanso');
+			console.log("Descansando...");
+
+		}	
+
 	}
 
 }
