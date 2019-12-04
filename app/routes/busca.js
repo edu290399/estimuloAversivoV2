@@ -15,7 +15,6 @@ module.exports = function(app){
 	});
 
 	app.post('/buscaExp',function(req,res){
-		var IdSujeito = req.body.IdSujeito;
 		app.app.model.buscaModel.buscaExp(app,req,res);
 	});
     

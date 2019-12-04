@@ -288,7 +288,7 @@ module.exports.continuar = function(app,req,res,fase){
 
 
 					//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2 e se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
-					if( (maior - menor) <= difMin  && ( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
+					if( (maior - menor) <= difMin  && !( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
 						console.log("Fim CONDICIONAL da fase de Treino");
 						 contPasso = 1;
 						 contRepet = 0;
