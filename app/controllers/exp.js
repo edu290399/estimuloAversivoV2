@@ -92,7 +92,7 @@ function menorFunc(args){
 		else{
 			return;
 		}
-	},95);
+	},85);
 }
 
 //Envio da opcao A
@@ -114,7 +114,7 @@ module.exports.envExpA = function(app, req, res, fase){
 			//faz envio automatico apos 5 segundos de som facultativo
 			setTimeout(function(){
 				if(flag == 1){
-					res.render('aguarde',{ITI:(40 * 1000),  fase: fase});
+					res.render('aguarde',{ITI:(25 * 1000),  fase: fase});
 					app.app.model.expModel.enviarDbA(contBloco,contRepet,40,atrasoB,fase);
 					flag = 0;
 					contPasso = 1;
@@ -175,7 +175,7 @@ module.exports.envExpB = function(app, req, res , fase){
 		//faz envio automatico apos 5 segundos de som facultativo
 		setTimeout(function(){
 			if(flag == 1){
-				res.render('aguarde',{ITI:(40 * 1000),  fase: fase});
+				res.render('aguarde',{ITI:(25 * 1000 - (atrasoB * 1000)),  fase: fase});
 				app.app.model.expModel.enviarDbB(contBloco,contRepet,40,atrasoB,fase);
 				flag = 0;
 				contPasso = 1;
@@ -201,7 +201,7 @@ module.exports.envExpB = function(app, req, res , fase){
 	if (contPasso==3){
 		//seta a flag
 		flag = 0;
-		res.render('aguarde',{ITI: (15000 + tempoFuga ), fase: fase});
+		res.render('aguarde',{ITI: (25000 + tempoFuga - (atrasoB * 1000)), fase: fase});
 		app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,fase);
 		//reincia o passo
 		contPasso = 1;
