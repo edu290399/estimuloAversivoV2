@@ -20,12 +20,16 @@
 		<table>	
 			<tr>	
 				<th>Usar fator</th>
-                                <th>Fator (segundos)</th>		
+                                <th>Fator (segundos)</th>
+                                <th>Texto guia 01</th>
+                                <th>Texto guia 02</th>				
 			</tr>
 		
 			<tr>
 				<td> <%= difOnTd %> </td>
                                 <td> <%= difMinTd %> </td>
+                                <td> <%= txtTd01 %> </td>
+                                <td> <%= txtTd02 %> </td>
 			</tr>
 		</table>
 
@@ -35,6 +39,8 @@
                                 <input id="label" value="Usar fator">
                         </input>
                         <input  type="number" id="difMin" name="difMin" placeholder="Fator de Diferença (s)"  disabled required></input>
+                        <textarea placeholder="Texto guia tela 01"  id="txtguia01" name="txtguia01" class="txtguia"></textarea> 
+                        <textarea placeholder="Texto guia tela 02"  id="txtguia02" name="txtguia02" class="txtguia"></textarea>
                         <input type="submit" id="definir" class="botao" value="Definir" name="definir" > </input>
                 </form>    
         </body>

@@ -1,11 +1,12 @@
 module.exports.intro = function(app, req, res){
-	res.render('intro');
 	var lastConfigModel = require("../model/configModel");
-	lastConfigModel.lastConfigJS();
+	res.render('intro',{txt02:lastConfigModel.vars.txtDb02 });
+	
 }
 
 module.exports.index = function(app, req, res){
-	res.render('index');
+	var lastConfigModel = require("../model/configModel");
+	res.render('index',{txt01:lastConfigModel.vars.txtDb01 });
 }
 
 module.exports.exp = function(app, req, res){

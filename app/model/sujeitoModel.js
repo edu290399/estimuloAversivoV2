@@ -6,6 +6,7 @@
         var sujeito = req.body;
         var lastConfig;
         var db = require('../../config/connection');
+        var lastConfigModel = require("../model/configModel");
         db.conectar.serialize(() => {
           db.conectar.all("SELECT idConfig FROM config ORDER BY idConfig desc limit 1",[],
           (err,rows) => {
@@ -21,7 +22,8 @@
                   console.error(err.message);
                 return;
                 }
-              }),res.render('index');
+              }),lastConfigModel.lastConfigJS(),
+              res.render('index',{txt01:lastConfigModel.vars.txtDb01 });;
             });
           });
         })
