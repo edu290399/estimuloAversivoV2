@@ -6,6 +6,8 @@ var contRepet = 0;
 var contBloco = 0;
 //Array com as diferencas de atraso em relacao ao inicial de B (10s)
 var difAtraso = new Array(5);
+//Contador de tempo para escolha
+var escolha = 0;
 //Tempo no qual se escuta o som
 var tempoFuga = 10000;
 //flag para verificar se a opcao foi enviada via click
@@ -29,19 +31,19 @@ var menorPos = 0;
 
 //funcao para reiniciar as variaveis
 function reinicia(){
-	var contPasso = 1;
-	var contRepet = 5;
-	var contBloco = 1;
-	var tempoFuga = 10000;
-	var flag = 0;
-	var contA = 0;
-	var contB = 0;
-	var atrasoA = 5;
-	var atrasoB = 10;
-	var maior = 0;
-	var maiorPos = 0;
-	var menor = 0;
-	var menorPos = 0;
+	contPasso = 1;
+	contRepet = 0;
+	contBloco = 0;
+	tempoFuga = 10000;
+	flag = 0;
+	contA = 0;
+	contB = 0;
+	atrasoA = 5;
+	atrasoB = 10;
+	maior = 0;
+	maiorPos = 0;
+	menor = 0;
+	menorPos = 0;
 	console.log("Reiniciando variaveis...")
 }
 
@@ -95,6 +97,35 @@ function menorFunc(args){
 	},85);
 }
 
+//Funcao para determinar o tempo de escolha
+function contTempoEscolha(fase) {
+	if(contPasso == 1 && contRepet>=2){
+		setTimeout(function(){
+				if(escolha < (2 * 60 * 1000) ){
+					console.log("ESCOLHA--> "+escolha);
+					escolha += 100;
+					return contTempoEscolha(fase);
+				}
+				else if (escolha >= (2 * 60 * 1000) && escolha < (4 * 60 * 1000 )){
+					console.log("ESCOLHA--> "+escolha);
+					omissao = 1;
+					escolha += 100;
+					return contTempoEscolha(fase);
+				}
+				else{
+					console.log("Fim do experimento");
+					var lastConfigModel = require("../model/expModel");
+					lastConfigModel.enviarDbVazio(contBloco,contRepet,atrasoB,fase,escolha,omissao);
+					return reinicia();
+				}
+		},85);
+	}
+	else{
+		return;
+	}
+	
+}
+
 //Envio da opcao A
 module.exports.envExpA = function(app, req, res, fase){
 	
@@ -115,16 +146,17 @@ module.exports.envExpA = function(app, req, res, fase){
 			setTimeout(function(){
 				if(flag == 1){
 					res.render('aguarde',{ITI:(25 * 1000),  fase: fase});
-					app.app.model.expModel.enviarDbA(contBloco,contRepet,40,atrasoB,fase);
+					
+					if(contRepet>=2){
+						app.app.model.expModel.enviarDbA(contBloco,contRepet,25,atrasoB,fase,escolha,omissao);
+						contA += 1;
+					}else{
+						app.app.model.expModel.enviarDbA(contBloco,contRepet,25,atrasoB,fase,0,0);
+					}
 					flag = 0;
 					contPasso = 1;
 					contRepet++;
 					tempoFuga = 10000;
-
-					if(contRepet>2){
-						contA += 1;
-					}
-
 					console.log("Repet: "+contRepet);
 					console.log("Contador A: "+contA);
 					console.log("Contador B: "+contB);
@@ -140,22 +172,23 @@ module.exports.envExpA = function(app, req, res, fase){
 	if (contPasso==3){
 		flag = 0;
 		res.render('aguarde',{ITI: (25000 + tempoFuga ),  fase: fase});
-		app.app.model.expModel.enviarDbA(contBloco,contRepet,(25 + tempoFuga / 1000),atrasoB,fase);
-		contPasso = 1;
-		contRepet++;
 		console.log("RENDENRIZANDO: 25 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
 
 		//verifica se eh o momento de contar a quantidade de opcoes A ou B escolhidas
-		if(contRepet>2){
+		if(contRepet>=2){
+			app.app.model.expModel.enviarDbA(contBloco,contRepet,(25 + tempoFuga / 1000),atrasoB,fase,escolha,omissao);
 			//incrementa opcoes A escolhidas
 			contA += 1;
 			console.log("Contador A: "+contA);
 			console.log("Contador B: "+contB);
 		}else{
+			app.app.model.expModel.enviarDbA(contBloco,contRepet,(25 + tempoFuga / 1000),atrasoB,fase,0,0);
 			console.log("Contador A: "+contA);
 			console.log("Contador B: "+contB);
 		}
+		contPasso = 1;
+		contRepet++;
 	}
 
 }
@@ -176,16 +209,17 @@ module.exports.envExpB = function(app, req, res , fase){
 		setTimeout(function(){
 			if(flag == 1){
 				res.render('aguarde',{ITI:(25 * 1000 - (atrasoB * 1000)),  fase: fase});
-				app.app.model.expModel.enviarDbB(contBloco,contRepet,40,atrasoB,fase);
+				
+				if(contRepet>=2){
+					app.app.model.expModel.enviarDbB(contBloco,contRepet,25-atrasoB,atrasoB,fase,escolha,omissao);
+					contB += 1;
+				}else{
+					app.app.model.expModel.enviarDbB(contBloco,contRepet,25-atrasoB,atrasoB,fase,0,0);
+				}
 				flag = 0;
 				contPasso = 1;
 				contRepet++;
 				tempoFuga = 15000;
-				
-				if(contRepet>2){
-					contB += 1;
-				}
-
 				console.log("Repet: "+contRepet);
 				console.log("Contador A: "+contA);
 				console.log("Contador B: "+contB);
@@ -202,24 +236,25 @@ module.exports.envExpB = function(app, req, res , fase){
 		//seta a flag
 		flag = 0;
 		res.render('aguarde',{ITI: (25000 + tempoFuga - (atrasoB * 1000)), fase: fase});
-		app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,fase);
-		//reincia o passo
-		contPasso = 1;
-		contRepet++;
 		
+		//reincia o passo
 		console.log("RENDENRIZANDO: 15 +"+tempoFuga/1000);
 		console.log("Repet: "+contRepet);
 
 		//verifica se eh o momento de contar a quantidade de opcoes A ou B escolhidas
-		if(contRepet>2){
+		if(contRepet>=2){
+			app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,fase,escolha,omissao);
 			//incrementa a opcao escolhida
 			contB += 1;		
 			console.log("Contador A: "+contA);
 			console.log("Contador B: "+contB);
 		}else{
+			app.app.model.expModel.enviarDbB(contBloco,contRepet,(15 + tempoFuga / 1000),atrasoB,fase,0,0);
 			console.log("Contador A: "+contA);
 			console.log("Contador B: "+contB);
 		}
+		contPasso = 1;
+		contRepet++;
 	}
 
 }
@@ -228,6 +263,8 @@ module.exports.envExpB = function(app, req, res , fase){
 
 //continuacao da tela de espera
 module.exports.continuar = function(app,req,res,fase){
+	escolha = 0;
+	omissao = 0;
 	var lastConfigModel = require("../model/configModel");
 	console.log("DIF MIN EXPO ---> "+lastConfigModel.vars.difMinExpo);
 	console.log("DIF ON EXPO ----> "+lastConfigModel.vars.difOnExpo);
@@ -327,6 +364,6 @@ module.exports.continuar = function(app,req,res,fase){
 		}	
 
 	}
-
+	contTempoEscolha(fase);
 }
 

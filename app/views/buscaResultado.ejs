@@ -23,7 +23,9 @@
 				<th>Opção</th>
                 <th>ITI</th>
                 <th>Atraso B</th>
-                <th>Fase</th>
+				<th>Fase</th>
+				<th>Tempo Escolha</th>
+				<th>Omissão</th>
                 <th>Hora / Data</th>
                 <th>Config</th>
 				
@@ -44,7 +46,9 @@
                     <td><%= experimento[i].opcao %></td>
                     <td><%= experimento[i].ITI %></td>
                     <td><%= experimento[i].atrasoB %></td>
-                    <td><%= experimento[i].fase %></td>
+					<td><%= experimento[i].fase %></td>
+					<td><%= experimento[i].escolha %></td>
+					<td><%= experimento[i].omissao %></td>
                     <td><%= experimento[i].datahora %></td>
 					<td>
 						<form action = '/buscaConfigDefinida' method = 'post'>

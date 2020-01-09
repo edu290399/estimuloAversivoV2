@@ -3,6 +3,10 @@ module.exports = function(app){
 		app.app.controllers.render.index(app,req,res);
 	});
 
+	app.get('/fim',function(req,res){
+		app.app.controllers.render.fim(app,req,res);
+	});
+
 	app.get('/',function(req,res){
 		app.app.controllers.cadastro.cadastro(app,req,res);
 	});

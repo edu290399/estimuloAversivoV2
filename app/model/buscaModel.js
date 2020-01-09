@@ -24,6 +24,13 @@ module.exports.buscaConfigDefinida = function(app,req,res,idConfig){
     var sqliteSync = require('sqlite-sync');
     sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
     var rows = sqliteSync.run("SELECT * FROM experimento ORDER BY id desc");
+    for(var cont=0;cont<rows.length;cont++){
+      if(rows[cont].omissao == 1){
+        rows[cont].omissao = "Sim";
+      }else{
+        rows[cont].omissao = "Não";
+      }
+    }
     sqliteSync.close;
     res.render('buscaResultado',{experimento:rows});
   }
