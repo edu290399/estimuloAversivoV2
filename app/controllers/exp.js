@@ -47,40 +47,35 @@ function reinicia(){
 	console.log("Reiniciando variaveis...")
 }
 
-function organiza(args){
+function organiza(args,callback){
 	var aux;
 	for (cont=4; cont >= 0; cont --){
 		aux = args[cont];
 		args[cont] = args[cont-1];
 		console.log(args[cont-1] + " --> "+aux );
 	}
+	return callback
 }
 
-function maiorFunc(args){
-
+function comparar(args){
+	difAtraso[0] = atrasoB - 10;
+	menor = args[0];
 	maior = args[0];
 	for (var cont = 0; cont < 5; cont++){
 		if( (args[cont] - maior) > 0 ){
 			maior = args[cont];
 			maiorPos = cont;
-		}
-	}
-	console.log("Maior: "+maior);
-	console.log("Posicao do Maior: "+maiorPos);
-}
-
-function menorFunc(args){
-	menor = args[0];
-	for (var cont = 0; cont < 5; cont++){
-		if( (args[cont] - menor) < 0 ){
+		}else if((args[cont] - menor) < 0){
 			menor = args[cont];
 			menorPos = cont;
 		}
 	}
+	console.log("Maior: "+maior);
+	console.log("Posicao do Maior: "+maiorPos);
 	console.log("Menor: "+menor);
 	console.log("Posicao do Menor: "+menorPos);
-
 }
+
 
 //Funcao para determinar o tempo de fuga
  function contTempoFuga() {
@@ -283,42 +278,28 @@ module.exports.continuar = function(app,req,res,fase){
 		console.log("ContRepet >= 6");
 		//verifica se o teste acabou
 		if(contBloco < 10 && fase == "TREINO"){
-			//decrementa atraso de B
-			if(contA > contB){
-				console.log("Atraso B antes: "+atrasoB);
-				atrasoB++;
-				console.log("Atraso B depois: "+atrasoB);
-			}
-			//incrementa atraso de B
-			else if(contB > contA){
-				console.log("Atraso B antes: "+atrasoB);
-				atrasoB--;
-				console.log("Atraso B depois: "+atrasoB);
 
-			}
-			else
-				console.log("Atraso em B mantido");
-
-		
 			console.log("Fim do Bloco "+ (contBloco+1));
-			//salva a diferenca de atraso de B no bloco, em relacao ao valor de referencia
-
-			if (contBloco < 4){
-			difAtraso[4-contBloco] = atrasoB - 10;
-			console.log("Posicao do vetor: " + (4-contBloco) );
-			console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
-			}
-
+			
 			console.log("ON --->" + difOn);
 			console.log("MIN --->" + difMin);
-			//verifica se ja eh possivel comparar os conjuntos de blocos
+
 			if(difOn == 1){
 				console.log("COMPARANDO BLOCOS... CRITERIO ---> " + difMin +" segundos");
-				if (contBloco >=4){
-					organiza(difAtraso);
-					difAtraso[0] = atrasoB - 10;
-					maiorFunc(difAtraso);
-					menorFunc(difAtraso);
+				//verifica se ja eh possivel comparar os conjuntos de blocos
+				if (contBloco < 5){
+					//salva a diferenca de atraso de B no bloco, em relacao ao valor de referencia
+					difAtraso[4-contBloco] = atrasoB - 10;
+					console.log("Posicao do vetor: " + (4-contBloco) );
+					console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
+					res.render('expForc',{atrasoB : atrasoB});
+					contBloco++;
+				}
+				else{
+					if(contBloco > 5){
+						organiza(difAtraso, comparar());
+					}
+
 
 
 					console.log("Atraso[0]: "+difAtraso[0]);
@@ -331,23 +312,32 @@ module.exports.continuar = function(app,req,res,fase){
 						 contRepet = 0;
 						 contBloco = 0;
 						 flag = 0;
-						 contA = 0;
-						 contB = 0;
 						return 	(res.render('expForcTeste'),console.log("Mudando para o modo >>>TESTE<<<"));
 					}else{
 						res.render('expForc',{atrasoB : atrasoB});
 						contBloco++;
 					}
-				}else{
-					res.render('expForc',{atrasoB : atrasoB});
-					contBloco++;
 				}
 			}else{
 				console.log("COMPARACAO ENTRE BLOCOS DESLIGADA");
-				res.render('exp',{atrasoB : atrasoB});
+				res.render('expForc',{atrasoB : atrasoB});
 				contBloco++;
-			}	
-
+			}
+			//decrementa atraso de B
+			if(contA > contB){
+				console.log("Atraso B antes: "+atrasoB);
+				atrasoB++;
+				console.log("Atraso B depois: "+atrasoB);
+			}
+			//incrementa atraso de B
+			else if(contB > contA){
+				console.log("Atraso B antes: "+atrasoB);
+				atrasoB--;
+				console.log("Atraso B depois: "+atrasoB);
+			}
+			else{
+				console.log("Atraso em B mantido");
+			}
 			contRepet=0;
 			contA = 0;
 			contB = 0;
