@@ -12,13 +12,13 @@
      </audio>
 
     <div class="container">
-        <form id="formA" action='/envExpATeste' method='POST'>
+        <form id="formA" action='/envExpATeste' method='POST' style="display: none">
             <button type="submit" onclick="clickA();playA()" class="botao" id="opA" d>A</button>
         </form>
     </div>
 
     <div class="container2">
-        <form id="formB" action='/envExpBTeste' method='POST'>
+        <form id="formB" action='/envExpBTeste' method='POST' style="display: none">
             <button type="submit" onclick="clickB();playB()" class="botao" id="opB">B</button>
         </form>
     </div>
@@ -37,10 +37,10 @@
 		var rand = preRand%2;
 		console.log(rand);
 		if(rand == 0){
-			document.getElementById("formA").style.display  = "none";
+			document.getElementById("formA").style.display  = "block";
         }
         if(rand == 1){
-            document.getElementById("formB").style.display  = "none";
+            document.getElementById("formB").style.display  = "block";
         }
     }
     

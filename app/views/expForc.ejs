@@ -5,21 +5,21 @@
 
 </head>
 
-<body style="overflow: hidden;" onload="random()">
+<body style="overflow: hidden;" onload="random()" >
 
     <audio id="som" preload="auto"  loop>
         <source src="../public/SomExperimento.mp3" type="audio/mpeg" >
      </audio>
 
     <div class="container">
-        <form id="formA" action='/envExpA' method='POST'>
-            <button type="submit" onclick="clickA();playA()" class="botao" id="opA" d>A</button>
+        <form id="formA" action='/envExpA' method='POST' style="display: none" >
+            <button type="submit" onclick="clickA();playA()" class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
-        <form id="formB" action='/envExpB' method='POST'>
-            <button type="submit" onclick="clickB();playB()" class="botao" id="opB">B</button>
+        <form id="formB" action='/envExpB' method='POST' style="display: none">
+            <button type="submit" onclick="clickB();playB()" class="botao" id="opB" >B</button>
         </form>
     </div>
 
@@ -37,10 +37,10 @@
 		var rand = preRand%2;
 		console.log(rand);
 		if(rand == 0){
-			document.getElementById("formA").style.display  = "none";
+			document.getElementById("formA").style.display  = "block";
         }
         if(rand == 1){
-            document.getElementById("formB").style.display  = "none";
+            document.getElementById("formB").style.display  = "block";
         }
     }
     
