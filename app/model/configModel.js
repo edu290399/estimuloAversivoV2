@@ -34,23 +34,27 @@ module.exports.configurar = function(app,req,res){
 module.exports.lastConfig = function(app,req,res){ 
   var sqliteSync = require('sqlite-sync');
   sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
-  var rows = sqliteSync.run("SELECT * FROM config ORDER BY idConfig desc limit 1;");    
-  var difMinDB;
-  var difOnDB;
-  var txtDb01;
-  var txtDb02;
-      difMinDB = rows[0].difMin;
-      difOnDB = rows[0].difOn;
-      txtDb01 = rows[0].txt01;
-      txtDb02 = rows[0].txt02
-      if(difOnDB == 1){
-        difOnDB = "sim";
-      }else{
-        difOnDB = "não";
-        difMinDB = " - "
-      };
-      res.render('config',{difOnTd:difOnDB,difMinTd:difMinDB,txtTd01:txtDb01,txtTd02:txtDb02});
-      sqliteSync.close;
+  var rows = sqliteSync.run("SELECT * FROM config ORDER BY idConfig desc limit 1;");
+  if(rows.length > 0){    
+    var difMinDB;
+    var difOnDB;
+    var txtDb01;
+    var txtDb02;
+    difMinDB = rows[0].difMin;
+    difOnDB = rows[0].difOn;
+    txtDb01 = rows[0].txt01;
+    txtDb02 = rows[0].txt02
+    if(difOnDB == 1){
+      difOnDB = "sim";
+    }else{
+      difOnDB = "não";
+      difMinDB = " - "
+    };
+    res.render('config',{difOnTd:difOnDB,difMinTd:difMinDB,txtTd01:txtDb01,txtTd02:txtDb02});
+    sqliteSync.close;
+  }else{
+    res.render('config',{difOnTd:"Não configurado",difMinTd:"Não configurado",txtTd01:"Não configurado",txtTd02:"Não configurado"});
+  }
 }
 
 module.exports.lastConfigJS = function(){ 
