@@ -31,7 +31,7 @@ app.get('/continuarTeste',function(req,res){
 });
 
 app.get('/sairDescanso',function(req,res){
-    app.app.controllers.exp.sairDescanso(app,req,res);
+    app.app.controllers.render.sairDescanso(app,req,res);
 });
 
 }

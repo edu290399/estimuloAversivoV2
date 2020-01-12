@@ -20,6 +20,7 @@ var contB = 0;
 var atrasoA = 5;
 //Atraso incial de B (em sengundos)
 var atrasoB = 10;
+module.exports.atrasoB = atrasoB;
 //Maior diferenca de atraso
 var maior = 0;
 //Posicao da maior diferenca de atraso
@@ -113,7 +114,7 @@ function contTempoEscolha(fase) {
 					lastConfigModel.enviarDbVazio(contBloco,contRepet,atrasoB,fase,escolha,omissao);
 					return reinicia();
 				}
-		},85);
+		},82);
 	}
 	else{
 		return;
@@ -277,7 +278,7 @@ module.exports.continuar = function(app,req,res,fase){
 	else if(contRepet==6){
 		console.log("ContRepet >= 6");
 		//verifica se o teste acabou
-		if(contBloco < 10 && fase == "TREINO"){
+		if( (contBloco % 10) != 10 && fase == "TREINO"){
 
 			console.log("Fim do Bloco "+ (contBloco+1));
 			
@@ -312,7 +313,7 @@ module.exports.continuar = function(app,req,res,fase){
 						 contRepet = 0;
 						 contBloco = 0;
 						 flag = 0;
-						return 	(res.render('expForcTeste'),console.log("Mudando para o modo >>>TESTE<<<"));
+						return 	(res.render('expForcTeste',{atrasoB : atrasoB}),console.log("Mudando para o modo >>>TESTE<<<"));
 					}else{
 						res.render('expForc',{atrasoB : atrasoB});
 						contBloco++;
@@ -323,24 +324,6 @@ module.exports.continuar = function(app,req,res,fase){
 				res.render('expForc',{atrasoB : atrasoB});
 				contBloco++;
 			}
-			//decrementa atraso de B
-			if(contA > contB){
-				console.log("Atraso B antes: "+atrasoB);
-				atrasoB++;
-				console.log("Atraso B depois: "+atrasoB);
-			}
-			//incrementa atraso de B
-			else if(contB > contA){
-				console.log("Atraso B antes: "+atrasoB);
-				atrasoB--;
-				console.log("Atraso B depois: "+atrasoB);
-			}
-			else{
-				console.log("Atraso em B mantido");
-			}
-			contRepet=0;
-			contA = 0;
-			contB = 0;
 		}
 		else if (fase == "TESTE"){
 			res.render('fim');
@@ -352,7 +335,24 @@ module.exports.continuar = function(app,req,res,fase){
 			console.log("Descansando...");
 
 		}	
-
+		//decrementa atraso de B
+		if(contA > contB){
+			console.log("Atraso B antes: "+atrasoB);
+			atrasoB++;
+			console.log("Atraso B depois: "+atrasoB);
+		}
+		//incrementa atraso de B
+		else if(contB > contA){
+			console.log("Atraso B antes: "+atrasoB);
+			atrasoB--;
+			console.log("Atraso B depois: "+atrasoB);
+		}
+		else{
+			console.log("Atraso em B mantido");
+		}
+		contRepet=0;
+		contA = 0;
+		contB = 0;
 	}
 	contTempoEscolha(fase);
 }
