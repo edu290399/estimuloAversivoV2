@@ -40,11 +40,14 @@ td{
 }
 
 th{
+    color: yellow;
     padding-left: 5px;
     white-space: nowrap;
     text-align: center;
     padding-bottom: 0.3cm;
-    
+    position: sticky;
+    top: 0;
+    background-color: black;
     
 }
 
