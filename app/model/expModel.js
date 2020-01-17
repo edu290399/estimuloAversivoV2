@@ -10,7 +10,7 @@ module.exports.enviarDbA = function(bloco,tentativa,ITI,atrasoB,fase,escolha,omi
             lastConfig = row.config
             console.log("ULTIMO ID ----> " + ultimoId);
             db.conectar.each("INSERT INTO experimento ('idSujeito','bloco','tentativa','opcao','ITI','atrasoB','fase','config','escolha','omissao') VALUES ('"
-            + ultimoId + "', '" + (bloco+1) + "', '" + (tentativa+1) + "', '" + "A" + "', '" + ITI + "', '" + atrasoB + "', '" + fase + "', '" + lastConfig + "', '" + escolha + "', '" + omissao + "' );",
+            + ultimoId + "', '" + (bloco+1) + "', '" + (tentativa+1) + "', '" + "A" + "', '" + ITI + "', '" + atrasoB + "', '" + fase + "', '" + lastConfig + "', '" + (escolha/1000) + "', '" + omissao + "' );",
             db.conectar.close,console.log("--> Conexao encerrada <--"),
             (err, row) => {
                 if (err) {
@@ -38,7 +38,7 @@ module.exports.enviarDbB = function(bloco,tentativa,ITI,atrasoB,fase,escolha,omi
             lastConfig = row.config
             console.log("ULTIMO ID ----> " + ultimoId);
             db.conectar.each("INSERT INTO experimento ('idSujeito','bloco','tentativa','opcao','ITI','atrasoB','fase','config','escolha','omissao') VALUES ('"
-            + ultimoId + "', '" + (bloco+1) + "', '" + (tentativa+1) + "', '" + "B" + "', '" + ITI + "', '" + atrasoB + "', '" + fase + "', '" + lastConfig + "', '" + escolha + "', '" + omissao +  "' );",
+            + ultimoId + "', '" + (bloco+1) + "', '" + (tentativa+1) + "', '" + "B" + "', '" + ITI + "', '" + atrasoB + "', '" + fase + "', '" + lastConfig + "', '" + (escolha/1000) + "', '" + omissao +  "' );",
             db.conectar.close,console.log("--> Conexao encerrada <--"),
             (err, row) => {
                 if (err) {
@@ -64,7 +64,7 @@ module.exports.enviarDbVazio = function(bloco,tentativa,atrasoB,fase,escolha,omi
             lastConfig = row.config
             console.log("ULTIMO ID ----> " + ultimoId);
             db.conectar.each("INSERT INTO experimento ('idSujeito','bloco','tentativa','opcao','ITI','atrasoB','fase','config','escolha','omissao') VALUES ('"
-            + ultimoId + "', '" + (bloco+1) + "', '" + (tentativa+1) + "', '" + "-" + "', '" + 0 + "', '" + atrasoB + "', '" + fase + "', '" + lastConfig + "', '" + escolha + "', '" + omissao +  "' );",
+            + ultimoId + "', '" + (bloco+1) + "', '" + (tentativa+1) + "', '" + "-" + "', '" + 0 + "', '" + atrasoB + "', '" + fase + "', '" + lastConfig + "', '" + (escolha/1000) + "', '" + omissao +  "' );",
             db.conectar.close,console.log("--> Conexao encerrada <--"),
             (err, row) => {
                 if (err) {
