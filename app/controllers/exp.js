@@ -269,13 +269,51 @@ module.exports.continuar = function(app,req,res,fase){
 	//verifica se ainda esta na etapa forcada
 	if(contRepet<2){
 		console.log("ContRepet < 2");
-		res.render('expForc',{atrasoB: atrasoB});
+		if(fase == "TREINO"){
+			res.render('expForc',{atrasoB: atrasoB});
+		}
+		else if (fase == "TESTE"){
+			res.render('expForcTeste',{atrasoB: atrasoB});
+			console.log(">>>TESTE<<<");
+		}else{
+			console.log("Erro na leitura da fase");
+			return;
+		}
 	}else if(contRepet>=2 && contRepet<6){
 		console.log("ContRepet >= 2 e < 6");
-		res.render('exp',{atrasoB: atrasoB});
+		if(fase == "TREINO"){
+			res.render('exp',{atrasoB: atrasoB});
+		}
+		else if (fase == "TESTE"){
+			res.render('expTeste',{atrasoB: atrasoB});
+			console.log(">>>TESTE<<<");
+		}else{
+			console.log("Erro na leitura da fase");
+			return;
+		}
 	}
 	//Verifica se o bloco acabou acabou
 	else if(contRepet==6){
+
+		if(contA > contB){
+			console.log("Atraso B antes: "+atrasoB);
+			atrasoB++;
+			console.log("Atraso B depois: "+atrasoB);
+			module.exports.atrasoB = atrasoB;
+		}
+		//incrementa atraso de B
+		else if(contB > contA){
+			console.log("Atraso B antes: "+atrasoB);
+			atrasoB--;
+			console.log("Atraso B depois: "+atrasoB);
+			module.exports.atrasoB = atrasoB;
+		}
+		else{
+			console.log("Atraso em B mantido");
+			module.exports.atrasoB = atrasoB;
+		} 
+
+
 		console.log("ContRepet >= 6");
 		//verifica se o teste acabou
 		if( (contBloco == 0 || (contBloco % 9) != 0) && fase == "TREINO"){
@@ -293,7 +331,7 @@ module.exports.continuar = function(app,req,res,fase){
 					difAtraso[4-contBloco] = atrasoB - 10;
 					console.log("Posicao do vetor: " + (4-contBloco) );
 					console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
-					res.render('exp',{atrasoB : atrasoB});
+					res.render('expForc',{atrasoB : atrasoB});
 					contBloco++;
 				}
 				else{
@@ -337,23 +375,6 @@ module.exports.continuar = function(app,req,res,fase){
 			console.log("Descansando...");
 		}	
 		//decrementa atraso de B
-		if(contA > contB){
-			console.log("Atraso B antes: "+atrasoB);
-			atrasoB++;
-			console.log("Atraso B depois: "+atrasoB);
-			module.exports.atrasoB = atrasoB;
-		}
-		//incrementa atraso de B
-		else if(contB > contA){
-			console.log("Atraso B antes: "+atrasoB);
-			atrasoB--;
-			console.log("Atraso B depois: "+atrasoB);
-			module.exports.atrasoB = atrasoB;
-		}
-		else{
-			console.log("Atraso em B mantido");
-			module.exports.atrasoB = atrasoB;
-		}
 		contRepet=0;
 		contA = 0;
 		contB = 0;

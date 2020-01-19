@@ -8,13 +8,13 @@
 	<body>
 		<div>
 			
-			<form action = '/continuar' name="continuar" method='GET'>
+			<form action = '/continuar' name="continuar" id="continuar" method='GET'>
 
 				<output> aguarde </output>
 						
 			</form>
 
-			<form action = '/continuarTeste' name="continuarTeste" method='GET'/>
+			<form action = '/continuarTeste' name="continuarTeste" id="continuarTeste" method='GET'/>
 		
 		</div>
 	</body>
@@ -25,15 +25,15 @@
 	if("<%= fase %>" == "TREINO"){
 		console.log(">>>>TREINO<<<")
 		setTimeout(function(){  
-			document.continuar.submit();
+			document.getElementById("continuar").submit();
 			console.log("<%=ITI%>");
 		}, "<%= ITI %>");
 	}
 
 	if("<%= fase %>" == "TESTE"){
-		console.log(">>>>TREINO<<<")
+		console.log(">>>>TESTE<<<")
 		setTimeout(function(){  
-			document.continuarTeste.submit();
+			document.getElementById("continuarTeste").submit();
 			console.log("<%=ITI%>");
 		}, "<%= ITI %>");
 	}
