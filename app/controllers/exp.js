@@ -21,6 +21,7 @@ var atrasoA = 5;
 //Atraso incial de B (em sengundos)
 var atrasoB = 10;
 module.exports.atrasoB = atrasoB;
+var atrasoBComp = 10;
 //Maior diferenca de atraso
 var maior = 0;
 //Posicao da maior diferenca de atraso
@@ -59,18 +60,23 @@ function organiza(args,callback){
 }
 
 function comparar(args){
-	difAtraso[0] = atrasoB - 10;
+	difAtraso[0] = atrasoBComp - 10;
 	menor = args[0];
 	maior = args[0];
 	for (var cont = 0; cont < 5; cont++){
-		if( (args[cont] - maior) > 0 ){
+		if( (args[cont] - maior) >= 0 ){
 			maior = args[cont];
 			maiorPos = cont;
-		}else if((args[cont] - menor) < 0){
+		}else if((args[cont] - menor) <= 0){
 			menor = args[cont];
 			menorPos = cont;
 		}
 	}
+	console.log("DifAtraso[0] --> " + difAtraso[0] );
+	console.log("DifAtraso[1] --> " + args[1]);
+	console.log("DifAtraso[2] --> " + args[2]);
+	console.log("DifAtraso[3] --> " + args[3]);
+	console.log("DifAtraso[4] --> " + args[4]);
 	console.log("Maior: "+maior);
 	console.log("Posicao do Maior: "+maiorPos);
 	console.log("Menor: "+menor);
@@ -328,7 +334,7 @@ module.exports.continuar = function(app,req,res,fase){
 				//verifica se ja eh possivel comparar os conjuntos de blocos
 				if (contBloco < 4){
 					//salva a diferenca de atraso de B no bloco, em relacao ao valor de referencia
-					difAtraso[4-contBloco] = atrasoB - 10;
+					difAtraso[4-contBloco] = atrasoBComp - 10;
 					console.log("Posicao do vetor: " + (4-contBloco) );
 					console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
 					res.render('expForc',{atrasoB : atrasoB});
@@ -347,7 +353,7 @@ module.exports.continuar = function(app,req,res,fase){
 
 
 					//verifica se a diferenca do maior e do menor num intervalo de 5 blocos eh menor ou igual a 2 e se os extremos do conjunto de blocos sao maior-menor ou menor-maior	
-					if( ( (maior - menor) <= difMin ) && !( (maiorPos == contBloco && menorPos == (contBloco - 4) ) || (maiorPos == (contBloco - 4) && menorPos == contBloco) ) ){
+					if( ( (maior - menor) <= difMin ) && !( (maiorPos == 0 && menorPos == 4 ) || (maiorPos == 4 && menorPos == 0) ) ){
 						console.log("Fim CONDICIONAL da fase de Treino");
 						 contPasso = 1;
 						 contRepet = 0;
@@ -359,6 +365,7 @@ module.exports.continuar = function(app,req,res,fase){
 						contBloco++;
 					}
 				}
+				atrasoBComp = atrasoB;
 			}else{
 				console.log("COMPARACAO ENTRE BLOCOS DESLIGADA");
 				res.render('expForc',{atrasoB : atrasoB});
