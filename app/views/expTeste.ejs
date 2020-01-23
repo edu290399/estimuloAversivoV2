@@ -6,7 +6,7 @@
 
 </head>
 
-<body style="overflow: hidden;">
+<body style="overflow: hidden;" onload="omissao()">
     <audio id="som" preload="auto"  loop>
         <source src="../public/SomExperimento.mp3" type="audio/mpeg" >
      </audio>
@@ -23,8 +23,9 @@
         </form>
     </div>
 
-    <!-- <form action='/envExpBComp' name="envExpBComp" method='POST'/> -->
+    <form id="redirecionaFim" action='/fim' method="GET"></form>
 
+ 
 </body>
 
 </html>
@@ -72,6 +73,14 @@
         setTimeout(function(){  
             play();
         }, "<%= atrasoB %>" * 1000)
+    }
+
+    function omissao(){
+        setTimeout(function(){ 
+            var formFinaliza = document.getElementById('redirecionaFim');
+            formFinaliza.submit();
+            console.log("Omissao")
+        },  10 * 1000)
     }
 
 

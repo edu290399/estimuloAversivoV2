@@ -23,7 +23,7 @@
         </form>
     </div>
 
-        <form id="redirecionaFim" action='/fim'></form>
+        <form id="redirecionaFim" action='/fim' method="GET"></form>
 
     <!-- <form action='/envExpBComp' name="envExpBComp" method='POST'/> -->
 
@@ -81,7 +81,7 @@
             var formFinaliza = document.getElementById('redirecionaFim');
             formFinaliza.submit();
             console.log("Omissao")
-        }, 4 * 60 * 1000)
+        },  10 * 1000)
     }
 
 </script>
