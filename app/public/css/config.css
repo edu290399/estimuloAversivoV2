@@ -1,7 +1,7 @@
 table{
-    margin-left: -12.5%;
+    margin-left: -15%;
     font-size: 21px;
-    width: 50%;
+    width: 60%;
     padding: 1%;
     border: 1px solid black;
 }
@@ -93,4 +93,15 @@ input{
 
 #txtguia01{
     margin-left: -2%;
+}
+
+#somLabel{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 2%;
+}
+
+#som{
+    margin-left: -6%;
 }

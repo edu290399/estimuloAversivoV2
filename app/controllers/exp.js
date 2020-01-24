@@ -1,3 +1,6 @@
+var importConfig = require("../model/configModel");
+importConfig.lastConfigJS();
+var som = importConfig.vars.somDb;
 //Contador para determinar se a opcao foi selecionada ou enviada
 var contPasso = 1;
 //Contador para determinar a tentativa
@@ -276,10 +279,10 @@ module.exports.continuar = function(app,req,res,fase){
 	if(contRepet<2){
 		console.log("ContRepet < 2");
 		if(fase == "TREINO"){
-			res.render('expForc',{atrasoB: atrasoB});
+			res.render('expForc',{atrasoB: atrasoB , som: som});
 		}
 		else if (fase == "TESTE"){
-			res.render('expForcTeste',{atrasoB: atrasoB});
+			res.render('expForcTeste',{atrasoB: atrasoB , som: som});
 			console.log(">>>TESTE<<<");
 		}else{
 			console.log("Erro na leitura da fase");
@@ -288,10 +291,10 @@ module.exports.continuar = function(app,req,res,fase){
 	}else if(contRepet>=2 && contRepet<6){
 		console.log("ContRepet >= 2 e < 6");
 		if(fase == "TREINO"){
-			res.render('exp',{atrasoB: atrasoB});
+			res.render('exp',{atrasoB: atrasoB , som: som});
 		}
 		else if (fase == "TESTE"){
-			res.render('expTeste',{atrasoB: atrasoB});
+			res.render('expTeste',{atrasoB: atrasoB , som: som});
 			console.log(">>>TESTE<<<");
 		}else{
 			console.log("Erro na leitura da fase");
@@ -337,7 +340,7 @@ module.exports.continuar = function(app,req,res,fase){
 					difAtraso[4-contBloco] = atrasoBComp - 10;
 					console.log("Posicao do vetor: " + (4-contBloco) );
 					console.log("Diferenca do atraso: " + difAtraso[4-contBloco] );
-					res.render('expForc',{atrasoB : atrasoB});
+					res.render('expForc',{atrasoB : atrasoB , som: som});
 					contBloco++;
 				}
 				else{
@@ -359,16 +362,16 @@ module.exports.continuar = function(app,req,res,fase){
 						 contRepet = 0;
 						 contBloco = 0;
 						 flag = 0;
-						return 	(res.render('expForcTeste',{atrasoB : atrasoB}),console.log("Mudando para o modo >>>TESTE<<<"));
+						return 	(res.render('expForcTeste',{atrasoB : atrasoB , som: som}),console.log("Mudando para o modo >>>TESTE<<<"));
 					}else{
-						res.render('expForc',{atrasoB : atrasoB});
+						res.render('expForc',{atrasoB : atrasoB , som: som});
 						contBloco++;
 					}
 				}
 				atrasoBComp = atrasoB;
 			}else{
 				console.log("COMPARACAO ENTRE BLOCOS DESLIGADA");
-				res.render('expForc',{atrasoB : atrasoB});
+				res.render('expForc',{atrasoB : atrasoB , som: som});
 				contBloco++;
 			}
 		}

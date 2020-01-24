@@ -21,6 +21,7 @@
 			<tr>	
 				<th>Usar fator</th>
                                 <th>Fator (segundos)</th>
+                                <th>Som</th>
                                 <th>Texto guia 01</th>
                                 <th>Texto guia 02</th>				
 			</tr>
@@ -28,6 +29,7 @@
 			<tr>
 				<td> <%= difOnTd %> </td>
                                 <td> <%= difMinTd %> </td>
+                                <td> <%= somTd %> </td>
                                 <td> <%= txtTd01 %> </td>
                                 <td> <%= txtTd02 %> </td>
 			</tr>
@@ -35,6 +37,9 @@
 
 
                 <form action = '/configurar' method= 'post'>
+                        <br>
+                        <label id="somLabel"> Áudio do Experimento </label>
+                        <input type="file" id="som" name="som" placeholder="Fator de Diferença (s)" accept="audio/*" required></input>  
                         <input title="Usar fator" onclick="verify()" type="checkbox" name="difOn" id="difOn">
                                 <input id="label" value="Usar fator">
                         </input>
