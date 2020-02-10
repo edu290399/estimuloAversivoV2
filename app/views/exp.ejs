@@ -8,7 +8,7 @@
 
 <body style="overflow: hidden;" onload="omissao()" >
     <audio id="som" preload="auto"  loop>
-        <source src="../public/<%= som %>" type="audio/mpeg" >
+        <source src="../sounds/<%= som %>"  type="audio/mpeg" >
      </audio>
 
     <div class="container">
@@ -81,7 +81,7 @@
             var formFinaliza = document.getElementById('redirecionaFim');
             formFinaliza.submit();
             console.log("Omissao")
-        },  10 * 1000)
+        },  4 * 60 * 1000)
     }
 
 </script>
