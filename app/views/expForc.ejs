@@ -6,8 +6,8 @@
 </head>
 
 <body style="overflow: hidden;" onload="random()" >
-
-    <audio id="som" preload="auto"  loop>
+    
+    <audio id="som" name="som" preload="auto"  loop>
         <source src="../sounds/<%= som %>" type="audio/mpeg" >
      </audio>
 
@@ -52,6 +52,7 @@
         console.log(tempo);
         document.getElementById("opA").style.display  = "none";
         document.getElementById("opB").style.display  = "none";
+        console.log("Tempo Som: ",document.getElementById("som").currentTime);
         return apareceA();
     }
     function clickB(){
@@ -59,6 +60,7 @@
         console.log(tempo);
         document.getElementById("opA").style.display  = "none";
         document.getElementById("opB").style.display  = "none";
+        console.log("Tempo Som: ",document.getElementById("som").currentTime);
         return apareceB();
     }
     function apareceA(){

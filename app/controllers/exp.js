@@ -1,6 +1,5 @@
 var importConfig = require("../model/configModel");
-importConfig.lastConfigJS();
-var som = importConfig.vars.somDb;
+
 //Contador para determinar se a opcao foi selecionada ou enviada
 var contPasso = 1;
 //Contador para determinar a tentativa
@@ -133,7 +132,6 @@ function contTempoEscolha(fase) {
 
 //Envio da opcao A
 module.exports.envExpA = function(app, req, res, fase){
-	
 	//Verifica qual o atual passo do teste
 	console.log("Passo Antes: "+contPasso);
 	//incrementa o contador do passo
@@ -268,6 +266,8 @@ module.exports.envExpB = function(app, req, res , fase){
 
 //continuacao da tela de espera
 module.exports.continuar = function(app,req,res,fase){
+	importConfig.lastConfigJS();
+	var som = importConfig.vars.somDb;
 	escolha = 0;
 	omissao = 0;
 	var lastConfigModel = require("../model/configModel");
