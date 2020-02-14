@@ -1,4 +1,5 @@
-
+var db = require('../../config/connection');
+var sqliteSync = require('sqlite-sync');
 module.exports.configurar = function(app,req,res){ 
     var config = req.body;
     var mensagem = config.difOn;
@@ -18,7 +19,6 @@ module.exports.configurar = function(app,req,res){
       ligadoRender = "não";
       tempoRender = " - ";
     }
-    var db = require('../../config/connection');
     db.conectar.serialize(() => {
       db.conectar.each("INSERT INTO config ('difOn','difMin','txt01', 'txt02' , 'som') VALUES ('"
        + ligadoDB + "', '" + tempoDB + "', '" + txt01 + "', '" + txt02 + "', '" + som + "')",
@@ -33,7 +33,6 @@ module.exports.configurar = function(app,req,res){
 }
 
 module.exports.lastConfig = function(app,req,res){ 
-  var sqliteSync = require('sqlite-sync');
   sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
   var rows = sqliteSync.run("SELECT * FROM config ORDER BY idConfig desc limit 1;");
   if(rows.length > 0){    
@@ -61,8 +60,6 @@ module.exports.lastConfig = function(app,req,res){
 }
 
 module.exports.lastConfigJS = function(){ 
-
-  var sqliteSync = require('sqlite-sync');
   sqliteSync.connect("./dataBase/estimuloAversivoV2.db");
   var rows = sqliteSync.run("SELECT * FROM config ORDER BY idConfig desc limit 1;");
   difMinExpo = (rows[0].difMin);

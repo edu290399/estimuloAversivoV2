@@ -1,4 +1,3 @@
-var importConfig = require("../model/configModel");
 
 //Contador para determinar se a opcao foi selecionada ou enviada
 var contPasso = 1;
@@ -32,6 +31,9 @@ var maiorPos = 0;
 var menor = 0;
 //Posicao da menor diferenca de atraso
 var menorPos = 0;
+
+var importConfig;
+var som;
 
 //funcao para reiniciar as variaveis
 function reinicia(){
@@ -132,6 +134,7 @@ function contTempoEscolha(fase) {
 
 //Envio da opcao A
 module.exports.envExpA = function(app, req, res, fase){
+	
 	//Verifica qual o atual passo do teste
 	console.log("Passo Antes: "+contPasso);
 	//incrementa o contador do passo
@@ -266,15 +269,18 @@ module.exports.envExpB = function(app, req, res , fase){
 
 //continuacao da tela de espera
 module.exports.continuar = function(app,req,res,fase){
+	if(contBloco == 0 && contRepet==1){
+	importConfig = require("../model/configModel");
 	importConfig.lastConfigJS();
-	var som = importConfig.vars.somDb;
+	som = importConfig.vars.somDb;
+	console.log("Atualizando variaveis de config");
+	}
 	escolha = 0;
 	omissao = 0;
-	var lastConfigModel = require("../model/configModel");
-	console.log("DIF MIN EXPO ---> "+lastConfigModel.vars.difMinExpo);
-	console.log("DIF ON EXPO ----> "+lastConfigModel.vars.difOnExpo);
-	var difOn = lastConfigModel.vars.difOnExpo;
-	var difMin = lastConfigModel.vars.difMinExpo;
+	console.log("DIF MIN EXPO ---> "+importConfig.vars.difMinExpo);
+	console.log("DIF ON EXPO ----> "+importConfig.vars.difOnExpo);
+	var difOn = importConfig.vars.difOnExpo;
+	var difMin = importConfig.vars.difMinExpo;
 	//verifica se ainda esta na etapa forcada
 	if(contRepet<2){
 		console.log("ContRepet < 2");

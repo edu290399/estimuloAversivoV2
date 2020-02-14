@@ -1,8 +1,5 @@
  module.exports.cadastrar = function(app,req,res){ 
-  
- 
         // open the database
-
         var sujeito = req.body;
         var lastConfig;
         var db = require('../../config/connection');
