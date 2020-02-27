@@ -7,18 +7,21 @@
 
 <body style="overflow: hidden;" onload="random()" >
     
-    <audio id="som" name="som" preload="auto"  loop>
+  
+    <audio id="som" name="som" preload="auto" ontimeupdate="marcaTempoB();marcaTempoA();" loop>
         <source src="../sounds/<%= som %>" type="audio/mpeg" >
      </audio>
 
     <div class="container">
-        <form id="formA" action='/envExpA' method='POST' style="display: none" >
+        <form id="formA" action='/envExpA' method='POST' style="display: none">
+            <input name="tempoSomA" id="tempoSomA" style="display:block"/>
             <button type="submit" onclick="clickA();playA()" class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
         <form id="formB" action='/envExpB' method='POST' style="display: none">
+            <input name="tempoSomB" id="tempoSomB" style="display: block;"/>
             <button type="submit" onclick="clickB();playB()" class="botao" id="opB" >B</button>
         </form>
     </div>
@@ -52,7 +55,6 @@
         console.log(tempo);
         document.getElementById("opA").style.display  = "none";
         document.getElementById("opB").style.display  = "none";
-        console.log("Tempo Som: ",document.getElementById("som").currentTime);
         return apareceA();
     }
     function clickB(){
@@ -60,7 +62,6 @@
         console.log(tempo);
         document.getElementById("opA").style.display  = "none";
         document.getElementById("opB").style.display  = "none";
-        console.log("Tempo Som: ",document.getElementById("som").currentTime);
         return apareceB();
     }
     function apareceA(){
@@ -77,6 +78,14 @@
     function play(){
         var som = document.getElementById('som');
         som.play();
+    }
+
+    function marcaTempoA(){
+        document.getElementById("tempoSomA").value = document.getElementById("som").currentTime;
+    }
+
+    function marcaTempoB(){
+        document.getElementById("tempoSomB").value = document.getElementById("som").currentTime;
     }
 
     function playA(){

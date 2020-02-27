@@ -13,12 +13,14 @@
 
     <div class="container">
         <form action='/envExpATeste' method='POST'>
+            <input name="tempoSom" id="tempoSomA" style="display:none" />
             <button type="submit" onclick='clickA();playA()' class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
         <form action='/envExpBTeste' method='POST'>
+            <input name="tempoSom" id="tempoSomB" style="display:none" />
             <button type="submit" onclick='clickB();playB()' class="botao" id="opB">B</button>
         </form>
     </div>
@@ -37,6 +39,7 @@
         console.log(tempo);
         document.getElementById("opA").style.display  = "none";
         document.getElementById("opB").style.display  = "none";
+        document.getElementById("tempoSomA").value = document.getElementById("som").currentTime;
         return apareceA();
     }
     function clickB(){
@@ -44,6 +47,7 @@
         console.log(tempo);
         document.getElementById("opA").style.display  = "none";
         document.getElementById("opB").style.display  = "none";
+        document.getElementById("tempoSomB").value = document.getElementById("som").currentTime;
         return apareceB();
     }
     function apareceA(){

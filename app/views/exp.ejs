@@ -7,18 +7,20 @@
 </head>
 
 <body style="overflow: hidden;" onload="omissao()" >
-    <audio id="som" preload="auto"  loop>
+    <audio id="som" preload="auto" ontimeupdate="marcaTempoB();marcaTempoA();"  loop>
         <source src="../sounds/<%= som %>"  type="audio/mpeg" >
      </audio>
 
     <div class="container">
         <form action='/envExpA' method='POST'>
+            <input name="tempoSom" id="tempoSomA" style="display:none" />
             <button type="submit" onclick='clickA();playA()' class="botao" id="opA">A</button>
         </form>
     </div>
 
     <div class="container2">
         <form action='/envExpB' method='POST'>
+            <input name="tempoSom" id="tempoSomB" style="display:none" />
             <button type="submit" onclick='clickB();playB()' class="botao" id="opB">B</button>
         </form>
     </div>
@@ -74,6 +76,14 @@
         setTimeout(function(){  
             play();
         }, "<%= atrasoB %>" * 1000)
+    }
+
+    function marcaTempoA(){
+        document.getElementById("tempoSomA").value = document.getElementById("som").currentTime;
+    }
+
+    function marcaTempoB(){
+        document.getElementById("tempoSomB").value = document.getElementById("som").currentTime;
     }
 
     function omissao(){

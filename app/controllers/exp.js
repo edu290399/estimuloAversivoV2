@@ -151,7 +151,7 @@ module.exports.envExpA = function(app, req, res, fase){
 			setTimeout(function(){
 				if(flag == 1){
 					res.render('aguarde',{ITI:(25 * 1000),  fase: fase});
-					
+					console.log(req.body);
 					if(contRepet>=2){
 						app.app.model.expModel.enviarDbA(contBloco,contRepet,25,atrasoB,fase,escolha,omissao);
 						contA += 1;
