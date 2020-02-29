@@ -4,7 +4,7 @@ var contPasso = 1;
 //Contador para determinar a tentativa
 var contRepet = 0;
 //Contador para determinar o bloco
-var contBloco = 9;//Array com as diferencas de atraso em relacao ao inicial de B (10s)
+var contBloco = 0;//Array com as diferencas de atraso em relacao ao inicial de B (10s)
 var difAtraso = new Array(5);
 //Contador de tempo para escolha
 var escolha = 0;
@@ -268,7 +268,7 @@ module.exports.envExpB = function(app, req, res , fase){
 
 //continuacao da tela de espera
 module.exports.continuar = function(app,req,res,fase){
-	if(contBloco == 9 && contRepet==1){
+	if(contBloco == 0 && contRepet==1){
 	importConfig = require("../model/configModel");
 	importConfig.lastConfigJS();
 	som = importConfig.vars.somDb;
